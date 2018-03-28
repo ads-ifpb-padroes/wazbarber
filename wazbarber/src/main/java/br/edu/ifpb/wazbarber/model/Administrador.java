@@ -1,16 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifpb.wazbarber.model;
+
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  *
  * @author romulo
  */
-public class Administrador {
+@Entity
+public class Administrador implements Serializable {
 
+    @Id
+    @GeneratedValue
+    private int id;
     private String nome;
     private String login;
     private String senha;
@@ -23,6 +27,14 @@ public class Administrador {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -51,8 +63,6 @@ public class Administrador {
 
     @Override
     public String toString() {
-        return "Administrador{" + "nome=" + nome + ", login=" + login
-                + ", senha=" + senha + '}';
+        return "Administrador{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + '}';
     }
-
 }
