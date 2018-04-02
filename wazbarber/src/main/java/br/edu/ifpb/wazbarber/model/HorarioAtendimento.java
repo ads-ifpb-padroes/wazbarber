@@ -1,20 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifpb.wazbarber.model;
 
+import br.edu.ifpb.wazbarber.util.LocalTimeConverter;
+import java.io.Serializable;
 import java.time.LocalTime;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  *
  * @author romulo
  */
-public class HorarioAtendimento {
+@Entity
+public class HorarioAtendimento implements Serializable {
 
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @Convert(converter = LocalTimeConverter.class)
     private LocalTime horaChegada;
+
+    @Convert(converter = LocalTimeConverter.class)
     private LocalTime horaSaida;
+
+    @Enumerated(EnumType.STRING)
+    private Dia dia;
 
     public HorarioAtendimento() {
     }
@@ -22,6 +36,14 @@ public class HorarioAtendimento {
     public HorarioAtendimento(LocalTime horaChegada, LocalTime horaSaida) {
         this.horaChegada = horaChegada;
         this.horaSaida = horaSaida;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalTime getHoraChegada() {
@@ -40,4 +62,11 @@ public class HorarioAtendimento {
         this.horaSaida = horaSaida;
     }
 
+    public Dia getDia() {
+        return dia;
+    }
+
+    public void setDia(Dia dia) {
+        this.dia = dia;
+    }
 }

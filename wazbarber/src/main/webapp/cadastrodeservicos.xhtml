@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"> 
+    <h:head>
+        <title>Cadastro de Serviços</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+
+            <ui:define name="navbar">
+                <nav class="grey darken-3">
+                    <div class="nav-wrapper">
+                        <a href="areaadmin.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
+                        <ul class="right hide-on-med-and-down">
+                            <h:form>
+                                <li><a><i class="material-icons left">person</i>Admin</a></li>
+                                <li><a jsf:action="#{controladorDeAdmin.realizarLogout()}"><i class="material-icons right">input</i>Logout</a></li>
+                            </h:form>
+                        </ul>
+                    </div>
+                </nav>
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <div class="row">      
+                    <h4 align="center" style="margin-top: 8%">Cadastro de Serviços</h4>
+
+                    <h:messages class="red-text center"/>
+
+                    <h:form class="col s12">
+
+                        <div class="row">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <h:inputText id="nome" class="validate" value="#{controladorDeServico.servico.nome}" required="true"/>
+                                    <label for="nome">Nome</label>
+                                </div>
+                            </center>
+                        </div>
+
+                        <div class="row">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <i class="material-icons prefix">access_time</i>
+                                    <h:inputText id="duracao" class="validate" value="#{controladorDeServico.servico.duracao}" required="true"/>
+                                    <label for="duracao">Duração</label>
+                                </div>
+                            </center>
+                        </div>
+
+                        <div class="row">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <i class="material-icons prefix">monetization_on</i>
+                                    <h:inputText id="preco" class="validate" value="#{controladorDeServico.servico.preco}" required="true"/>
+                                    <label for="preco">Preço</label>
+                                </div>
+                            </center>
+                        </div>
+
+                        <div class="input-field" align="center">
+                            <h:commandButton value="Cadastrar" class="waves-effect waves-light btn grey darken-2" action="#{controladorDeServico.cadastrar()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

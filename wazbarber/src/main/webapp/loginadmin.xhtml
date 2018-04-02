@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Login Admin</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+
+            <ui:define name="navbar">
+                <nav class="grey darken-3">
+                    <div class="nav-wrapper">
+                        <a href="index.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="index.xhtml"><i class="material-icons left">person</i>Logar Como Cliente</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <div class="row">
+                    <div class="col s11 m6 offset-m3">
+                        <center>
+                            <div class="row" style="margin-top: 15%">
+                                <img src="images/logo.png" alt="Perfil"/>
+                            </div>
+
+                            <h:messages class="red-text center"/>
+
+                            <h:form class="col s12">
+                                <div class="row">
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <h:inputText id="email" class="validate" value="#{controladorDeAdmin.administrador.login}" required="true"/>
+                                        <label for="email">Usuário</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">lock</i>
+                                        <h:inputSecret id="senha" class="validate" value="#{controladorDeAdmin.administrador.senha}" required="true"/>
+                                        <label for="senha">Senha</label>
+                                    </div>
+
+                                </div>
+                                <div class="input-field">
+                                    <h:commandButton class="waves-effect waves-light btn grey darken-2" action="#{controladorDeAdmin.realizarlogin()}" value="Login"/>
+                                </div>
+                            </h:form>
+                        </center>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

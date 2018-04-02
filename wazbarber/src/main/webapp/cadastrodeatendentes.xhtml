@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>Cadastro de Atendentes</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+
+            <ui:define name="navbar">
+                <nav class="grey darken-3">
+                    <div class="nav-wrapper">
+                        <a href="areaadmin.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
+                        <ul class="right hide-on-med-and-down">
+                            <h:form>
+                                <li><a><i class="material-icons left">person</i>Admin</a></li>
+                                <li><a jsf:action="#{controladorDeAdmin.realizarLogout()}"><i class="material-icons right">input</i>Logout</a></li>
+                            </h:form>
+                        </ul>
+                    </div>
+                </nav>
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <div class="row">      
+                    <h4 align="center" style="margin-top: 8%">Cadastro de Atendentes</h4>
+
+                    <h:messages class="red-text center"/>
+
+                    <h:form enctype="multipart/form-data" class="col s12">
+
+                        <div class="row">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <h:inputText id="nome" class="validate" value="#{controladorDeAtendente.atendente.nome}" required="true"/>
+                                    <label for="nome">Nome</label>
+                                </div>
+                            </center>
+                        </div> 
+
+                        <div class="row">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <h:selectOneMenu id="tipo" value="#{controladorDeAtendente.atendente.tipoDeAtendente}"
+                                                     required="true"
+                                                     requiredMessage="Selecione um tipo">
+                                        <f:selectItem itemLabel="Escolha um tipo"
+                                                      itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{controladorDeAtendente.getTiposAtendentes()}" var="tipo"
+                                                       itemLabel="#{tipo}"
+                                                       itemValue="#{tipo}" />
+                                    </h:selectOneMenu>
+                                </div>
+                            </center>
+                        </div>
+
+                        <div class="row">
+                            <div class="file-field input-field col s11 m6 offset-m3">
+                                <div class="waves-effect waves-light btn grey darken-2">
+                                    <span>Foto</span>
+                                    <h:inputFile id="foto" label="Foto" value="#{controladorDeAtendente.foto}" required="true"/>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-field" align="center">
+                            <h:commandButton value="Cadastrar" class="waves-effect waves-light btn grey darken-2" action="#{controladorDeAtendente.cadastrar()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+
