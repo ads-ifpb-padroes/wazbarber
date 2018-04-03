@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>Agendamento de Horário</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+
+            <ui:define name="navbar">
+                <nav class="grey darken-3">
+                    <div class="nav-wrapper">
+                        <a href="areaadmin.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
+                        <ul class="right hide-on-med-and-down">
+                            <h:form>
+                                <li><a><i class="material-icons left">person</i>Admin</a></li>
+                                <li><a jsf:action="#{controladorDeAdmin.realizarLogout()}"><i class="material-icons right">input</i>Logout</a></li>
+                            </h:form>
+                        </ul>
+                    </div>
+                </nav>
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <div class="row">      
+                    <h4 align="center" style="margin-top: 8%">Agende um Horário</h4>
+
+                    <h:messages class="red-text center"/>
+
+                    <h:form class="col s12">
+                        <div class="row">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <h:selectOneMenu id="agendamento" required="true"
+                                                     requiredMessage="Selecione um tipo de agendamento" 
+                                                     value="#{controladorDeAgendamentoHorario.opcaoAgendamento}">
+                                        <f:selectItem itemLabel="Escolha a forma de agendamento" 
+                                                      itemValue="" noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Por Atendente" itemValue="atendente"  
+                                                      noSelectionOption="false" />
+                                        <f:selectItem itemLabel="Por Serviço" itemValue="servico" 
+                                                      noSelectionOption="false"/>
+                                    </h:selectOneMenu>
+
+                                    <div class="input-field" align="center">
+                                        <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
+                                                         action="#{controladorDeAgendamentoHorario.confirmar()}"/>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                    </h:form>
+                    
+                    <h:form class="col s12">
+                        <div class="row" jsf:rendered="#{controladorDeAgendamentoHorario.opcaoAgendamento == 'atendente'}">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <h:selectOneMenu id="atendente" value="#{controladorDeAgendamentoHorario.agendamento.atendente.id}"
+                                                     required="true"
+                                                     requiredMessage="Selecione um atendente">
+                                        <f:selectItem itemLabel="Escolha um atendente"
+                                                      itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{controladorDeAtendente.todosOsAtendentes()}" var="atendente"
+                                                       itemLabel="#{atendente.nome}"
+                                                       itemValue="#{atendente.id}"/> 
+                                    </h:selectOneMenu>
+
+                                    <!--Provisório-->
+                                    <!--<input type="Date" jsf:value="#{controladorDeAgendamentoHorario.agendamento.data}"/>-->
+                                    
+                                    <h:inputText value="#{controladorDeAgendamentoHorario.teste}"/>
+                                    
+                                    <div class="input-field" align="center">
+                                        <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
+                                                         action="#{controladorDeAgendamentoHorario.confirmarAtendente()}"/>
+                                    </div>
+                                </div>
+
+                                <!--Aqui ficara os servicos com horario disponiveis do atendente-->
+
+                            </center>
+                        </div>
+                    </h:form>
+                    
+<!--                    <h5>Serviços</h5>
+                    <h:dataTable value="#{controladorContato.listarContatos()}" var="contato">
+                        <h:column>
+                            <div class="row">
+                                <div class="col l4 m4 s3">
+                                    #{contato.nome}    
+                                </div>
+                                <div class="col l4 m4 s3">
+                                    #{contato.numero}
+                                </div>
+                                <div class="col l4 m4 s2">
+                                    <h:form>
+                                        <div class="col l3 m6 s2">
+                                            <h:commandLink action="#{controladorContato.atualizarContato(contato)}"
+                                                           class="btn-floating btn-flat waves-effect waves-light blue">
+                                                <i class="material-icons">edit</i>
+                                            </h:commandLink>
+                                        </div>
+                                        <div class="col l3 m6 s2">
+                                            <h:commandLink id="removeContato" action="#{controladorContato.removerContato(contato)}"
+                                                           class="btn-floating btn-flat waves-effect waves-light red">
+                                                <i class="material-icons">clear</i>
+                                            </h:commandLink>
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </h:column>
+                    </h:dataTable>-->
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

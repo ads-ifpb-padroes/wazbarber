@@ -1,4 +1,4 @@
-package br.edu.ifpb.wazbarber.util;
+package br.edu.ifpb.wazbarber.conversores;
 
 import java.sql.Date;
 import java.time.LocalDate;

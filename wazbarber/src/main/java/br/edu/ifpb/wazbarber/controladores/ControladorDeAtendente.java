@@ -2,7 +2,7 @@ package br.edu.ifpb.wazbarber.controladores;
 
 import br.edu.ifpb.wazbarber.interfaces.DaoAtendente;
 import br.edu.ifpb.wazbarber.model.Atendente;
-import br.edu.ifpb.wazbarber.model.TipoDeAtendente;
+import br.edu.ifpb.wazbarber.model.enums.TipoDeAtendente;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;

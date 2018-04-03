@@ -1,4 +1,4 @@
-package br.edu.ifpb.wazbarber.util;
+package br.edu.ifpb.wazbarber.conversores;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;

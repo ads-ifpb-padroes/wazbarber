@@ -2,7 +2,7 @@ package br.edu.ifpb.wazbarber.controladores;
 
 import br.edu.ifpb.wazbarber.interfaces.DaoAtendente;
 import br.edu.ifpb.wazbarber.model.Atendente;
-import br.edu.ifpb.wazbarber.model.Dia;
+import br.edu.ifpb.wazbarber.model.enums.Dia;
 import br.edu.ifpb.wazbarber.model.HorarioAtendimento;
 import java.io.IOException;
 import java.io.Serializable;

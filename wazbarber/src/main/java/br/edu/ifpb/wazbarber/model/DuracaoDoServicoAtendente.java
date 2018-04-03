@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
  * @author jozimar
  */
 @Entity
-public class DuracaoDoServico implements Serializable {
+public class DuracaoDoServicoAtendente implements Serializable {
 
     @Id
     @GeneratedValue
@@ -25,10 +25,10 @@ public class DuracaoDoServico implements Serializable {
     @OneToOne
     private Servico servico;
 
-    public DuracaoDoServico() {
+    public DuracaoDoServicoAtendente() {
     }
 
-    public DuracaoDoServico(int duracao) {
+    public DuracaoDoServicoAtendente(int duracao) {
         this.duracao = duracao;
     }
 

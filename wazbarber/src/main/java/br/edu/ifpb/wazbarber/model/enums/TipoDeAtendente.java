@@ -1,4 +1,4 @@
-package br.edu.ifpb.wazbarber.model;
+package br.edu.ifpb.wazbarber.model.enums;
 
 /**
  *

@@ -1,7 +1,7 @@
 package br.edu.ifpb.wazbarber.model;
 
-import br.edu.ifpb.wazbarber.util.LocalDateConverter;
-import br.edu.ifpb.wazbarber.util.LocalDateTimeConverter;
+import br.edu.ifpb.wazbarber.conversores.LocalDateConverter;
+import br.edu.ifpb.wazbarber.conversores.LocalDateTimeConverter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,7 +43,8 @@ public class Agendamento implements Serializable {
     public Agendamento() {
     }
 
-    public Agendamento(int id, LocalDateTime horario, LocalDate data, boolean confirmado) {
+    public Agendamento(int id, LocalDateTime horario, 
+            LocalDate data, boolean confirmado) {
         this.id = id;
         this.horario = horario;
         this.data = data;

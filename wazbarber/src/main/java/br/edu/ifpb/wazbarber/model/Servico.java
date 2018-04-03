@@ -3,7 +3,6 @@ package br.edu.ifpb.wazbarber.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ public class Servico implements Serializable {
     private List<Atendente> atendentes;
 
     @OneToOne(mappedBy = "servico")
-    private DuracaoDoServico duracaoDoServico;
+    private DuracaoDoServicoAtendente duracaoDoServico;
 
     public Servico() {
     }
@@ -73,11 +72,11 @@ public class Servico implements Serializable {
         this.preco = preco;
     }
 
-    public DuracaoDoServico getDuracaoDoServico() {
+    public DuracaoDoServicoAtendente getDuracaoDoServico() {
         return duracaoDoServico;
     }
 
-    public void setDuracaoDoServico(DuracaoDoServico duracaoDoServico) {
+    public void setDuracaoDoServico(DuracaoDoServicoAtendente duracaoDoServico) {
         this.duracaoDoServico = duracaoDoServico;
     }
 

@@ -1,5 +1,6 @@
 package br.edu.ifpb.wazbarber.model;
 
+import br.edu.ifpb.wazbarber.model.enums.TipoDeAtendente;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class Atendente implements Serializable {
     List<HorarioAtendimento> horariosAtendimentos;
 
     @OneToOne(mappedBy = "atendente")
-    private DuracaoDoServico duracaoDoServico;
+    private DuracaoDoServicoAtendente duracaoDoServico;
 
     public Atendente() {
     }
@@ -107,6 +108,7 @@ public class Atendente implements Serializable {
 
     @Override
     public String toString() {
-        return "Atendente{" + "id=" + id + ", nome=" + nome + ", foto=" + foto + ", tipoDeAtendente=" + tipoDeAtendente + '}';
+        return "Atendente{" + "id=" + id + ", nome=" + nome 
+                + ", foto=" + foto + ", tipoDeAtendente=" + tipoDeAtendente + '}';
     }
 }

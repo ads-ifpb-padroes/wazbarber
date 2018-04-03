@@ -63,6 +63,7 @@ public class Administrador implements Serializable {
 
     @Override
     public String toString() {
-        return "Administrador{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + '}';
+        return "Administrador{" + "id=" + id + ", nome=" + nome 
+                + ", login=" + login + ", senha=" + senha + '}';
     }
 }

@@ -1,6 +1,7 @@
 package br.edu.ifpb.wazbarber.model;
 
-import br.edu.ifpb.wazbarber.util.LocalTimeConverter;
+import br.edu.ifpb.wazbarber.model.enums.Dia;
+import br.edu.ifpb.wazbarber.conversores.LocalTimeConverter;
 import java.io.Serializable;
 import java.time.LocalTime;
 import javax.persistence.Convert;
