@@ -44,10 +44,7 @@ public class Atendente implements Serializable {
     private List<Servico> servicos;
 
     @OneToMany(cascade = CascadeType.MERGE)
-    List<HorarioAtendimento> horariosAtendimentos;
-
-    @OneToOne(mappedBy = "atendente")
-    private DuracaoDoServicoAtendente duracaoDoServico;
+    List<HorarioAtendimento> horariosAtendimento;
 
     public Atendente() {
     }
@@ -59,7 +56,7 @@ public class Atendente implements Serializable {
         this.tipoDeAtendente = tipoDeAtendente;
         this.agendamentos = new ArrayList<>();
         this.servicos = new ArrayList<>();
-        this.horariosAtendimentos = new ArrayList<>();
+        this.horariosAtendimento = new ArrayList<>();
     }
 
     public int getId() {
@@ -103,9 +100,33 @@ public class Atendente implements Serializable {
     }
 
     public boolean addHorariosAtendimentos(HorarioAtendimento horarioAtendimento) {
-        return horariosAtendimentos.add(horarioAtendimento);
+        return horariosAtendimento.add(horarioAtendimento);
     }
 
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
+    }
+
+    public List<Servico> getServicos() {
+        return servicos;
+    }
+
+    public void setServicos(List<Servico> servicos) {
+        this.servicos = servicos;
+    }
+
+    public List<HorarioAtendimento> getHorariosAtendimento() {
+        return horariosAtendimento;
+    }
+
+    public void setHorariosAtendimento(List<HorarioAtendimento> horariosAtendimentos) {
+        this.horariosAtendimento = horariosAtendimentos;
+    }
+    
     @Override
     public String toString() {
         return "Atendente{" + "id=" + id + ", nome=" + nome 

@@ -68,9 +68,10 @@ public class Cliente implements Serializable {
     public String getCidade() {
         return cidade;
     }
+    
 
-    public boolean addAgendamentos(Agendamento agendamento) {
-        return agendamentos.add(agendamento);
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
     }
 
     @Override

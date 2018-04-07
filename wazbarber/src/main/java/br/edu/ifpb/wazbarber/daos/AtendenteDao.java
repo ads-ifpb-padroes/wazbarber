@@ -31,8 +31,8 @@ public class AtendenteDao implements DaoAtendente {
     }
 
     @Override
-    public void atualizar(Atendente atendente) {
-        entityManager.merge(atendente);
+    public void atualizar(Atendente novoEstado) {
+        entityManager.merge(novoEstado);
     }
 
     @Override
@@ -44,4 +44,5 @@ public class AtendenteDao implements DaoAtendente {
         }
         return query.getResultList();
     }
+
 }

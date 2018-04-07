@@ -1,7 +1,6 @@
 package br.edu.ifpb.wazbarber.daos;
 
 import br.edu.ifpb.wazbarber.interfaces.DaoServico;
-import br.edu.ifpb.wazbarber.model.DuracaoDoServicoAtendente;
 import br.edu.ifpb.wazbarber.model.Servico;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +22,6 @@ public class ServicoDao implements DaoServico {
     @Override
     public void cadastrar(Servico servico) {
         entityManager.persist(servico);
-    }
-    
-    @Override
-    public void cadastrarDuracao(DuracaoDoServicoAtendente duracaoDoServico) {
-        entityManager.persist(duracaoDoServico);
     }
     
     @Override

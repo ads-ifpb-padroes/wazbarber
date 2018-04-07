@@ -1,5 +1,6 @@
 package br.edu.ifpb.wazbarber.interfaces;
 
+import br.edu.ifpb.wazbarber.builder.ClienteBuilderException;
 import br.edu.ifpb.wazbarber.model.Cliente;
 
 /**
@@ -13,4 +14,7 @@ public interface DaoCliente {
     public Cliente consultarPorEmail(String email);
 
     public Cliente autenticarCliente(String email, String senha);
+    
+    public void atualizar(Cliente novoEstado);
+    
 }

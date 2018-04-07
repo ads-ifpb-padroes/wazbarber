@@ -3,7 +3,6 @@ package br.edu.ifpb.wazbarber.controladores;
 import br.edu.ifpb.wazbarber.interfaces.DaoAtendente;
 import br.edu.ifpb.wazbarber.interfaces.DaoServico;
 import br.edu.ifpb.wazbarber.model.Atendente;
-import br.edu.ifpb.wazbarber.model.DuracaoDoServicoAtendente;
 import br.edu.ifpb.wazbarber.model.Servico;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -23,8 +22,6 @@ public class ControladorDeServicos implements Serializable {
 
     private Servico servico;
 
-    private DuracaoDoServicoAtendente duracaoDoServico;
-
     @Inject
     private DaoAtendente daoAtendente;
 
@@ -35,7 +32,6 @@ public class ControladorDeServicos implements Serializable {
     public void instanceObjects() {
         this.atendente = new Atendente();
         this.servico = new Servico();
-        this.duracaoDoServico = new DuracaoDoServicoAtendente();
     }
 
     public String cadastrar() {
@@ -44,10 +40,6 @@ public class ControladorDeServicos implements Serializable {
         atendenteBuscado.addServicos(servico);
         daoAtendente.atualizar(atendenteBuscado);
         
-        duracaoDoServico.setAtendente(atendenteBuscado);
-        duracaoDoServico.setServico(servicoBuscado);
-
-        daoServico.cadastrarDuracao(duracaoDoServico);
         return "areaadmin.xhtml?faces-redirect=true";
     }
 
@@ -67,11 +59,4 @@ public class ControladorDeServicos implements Serializable {
         this.servico = servico;
     }
 
-    public DuracaoDoServicoAtendente getDuracaoDoServico() {
-        return duracaoDoServico;
-    }
-
-    public void setDuracaoDoServico(DuracaoDoServicoAtendente duracaoDoServico) {
-        this.duracaoDoServico = duracaoDoServico;
-    }
 }

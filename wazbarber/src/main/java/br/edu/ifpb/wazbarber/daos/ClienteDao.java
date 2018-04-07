@@ -1,5 +1,7 @@
 package br.edu.ifpb.wazbarber.daos;
 
+import br.edu.ifpb.wazbarber.builder.ClienteBuilder;
+import br.edu.ifpb.wazbarber.builder.ClienteBuilderException;
 import br.edu.ifpb.wazbarber.interfaces.DaoCliente;
 import br.edu.ifpb.wazbarber.model.Cliente;
 import java.util.Optional;
@@ -21,6 +23,11 @@ public class ClienteDao implements DaoCliente {
     @Override
     public void cadastrar(Cliente cliente) {
         entityManager.persist(cliente);
+    }
+    
+    @Override
+    public void atualizar(Cliente novoEstado) {
+        entityManager.merge(novoEstado);
     }
 
     @Override

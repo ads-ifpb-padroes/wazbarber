@@ -2,9 +2,11 @@ package br.edu.ifpb.wazbarber.model;
 
 import br.edu.ifpb.wazbarber.conversores.LocalDateConverter;
 import br.edu.ifpb.wazbarber.conversores.LocalDateTimeConverter;
+import br.edu.ifpb.wazbarber.conversores.LocalTimeConvert;
+import br.edu.ifpb.wazbarber.conversores.LocalTimeConverter;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,8 +25,8 @@ public class Agendamento implements Serializable {
     @GeneratedValue
     private int id;
 
-    @Convert(converter = LocalDateTimeConverter.class)
-    private LocalDateTime horario;
+    @Convert(converter = LocalTimeConverter.class)
+    private LocalTime horario;
 
     @Convert(converter = LocalDateConverter.class)
     private LocalDate data;
@@ -43,7 +45,7 @@ public class Agendamento implements Serializable {
     public Agendamento() {
     }
 
-    public Agendamento(int id, LocalDateTime horario, 
+    public Agendamento(int id, LocalTime horario, 
             LocalDate data, boolean confirmado) {
         this.id = id;
         this.horario = horario;
@@ -59,11 +61,11 @@ public class Agendamento implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getHorario() {
+    public LocalTime getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDateTime horario) {
+    public void setHorario(LocalTime horario) {
         this.horario = horario;
     }
 

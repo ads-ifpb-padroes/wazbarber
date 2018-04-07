@@ -27,9 +27,6 @@ public class Servico implements Serializable {
     @ManyToMany(mappedBy = "servicos")
     private List<Atendente> atendentes;
 
-    @OneToOne(mappedBy = "servico")
-    private DuracaoDoServicoAtendente duracaoDoServico;
-
     public Servico() {
     }
 
@@ -70,14 +67,6 @@ public class Servico implements Serializable {
 
     public void setPreco(double preco) {
         this.preco = preco;
-    }
-
-    public DuracaoDoServicoAtendente getDuracaoDoServico() {
-        return duracaoDoServico;
-    }
-
-    public void setDuracaoDoServico(DuracaoDoServicoAtendente duracaoDoServico) {
-        this.duracaoDoServico = duracaoDoServico;
     }
 
     public boolean addAtendentes(Atendente atendente) {

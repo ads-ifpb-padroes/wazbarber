@@ -13,7 +13,8 @@ public interface DaoAtendente {
 
     public Atendente buscarPorId(int id);
 
-    public void atualizar(Atendente atendente);
-
     public List<Atendente> todosOsAtendentes();
+    
+    public void atualizar(Atendente novoEstado);
+    
 }
