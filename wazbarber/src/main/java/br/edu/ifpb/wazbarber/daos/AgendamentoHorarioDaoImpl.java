@@ -28,7 +28,6 @@ import javax.persistence.TypedQuery;
  * @author romulo
  */
 @Stateless
-//@Local(AgendamentoHorarioDao.class)
 public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
 
     @PersistenceContext(unitName = "persistencia")
@@ -123,8 +122,24 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
         return new ArrayList<>();
     }
 
+    //Lista para o cliente escolher o servico
     @Override
-    public HorarioAtendimento horarioAtendimentoAtendente(
+    public List<Servico> servicosAtendente(int idAtendente) {
+
+        String querySql = "SELECT a FROM Atendente a WHERE a.id= :id";
+        TypedQuery<Atendente> query = entityManager
+                .createQuery(querySql, Atendente.class);
+        query.setParameter("id", idAtendente);
+
+        Optional<Atendente> atendente = query.getResultList().stream().findFirst();
+        if (atendente.isPresent()) {
+            return atendente.get().getServicos();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    private HorarioAtendimento horarioAtendimentoAtendente(
             int idAtendente, Dia dia) {
 
         String querySql = "SELECT a FROM Atendente a "
@@ -150,9 +165,10 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
             return null;
         }
     }
-
-    @Override
-    public List<Agendamento> agendamentosAtendente(int idAtendente, LocalDate data) {
+    
+    
+    //Aqui falta refatorar a busca para trazer apenas os agendamentos não confirmados
+    private List<Agendamento> agendamentosAtendente(int idAtendente, LocalDate data) {
 
         String querySql = "SELECT a FROM Agendamento a "
                 + "WHERE a.atendente.id= :id AND a.data= :data "
@@ -169,25 +185,7 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
         return query.getResultList();
     }
 
-    //Lista para o cliente escolher o servico
-    @Override
-    public List<Servico> servicosAtendente(int idAtendente) {
-
-        String querySql = "SELECT a FROM Atendente a WHERE a.id= :id";
-        TypedQuery<Atendente> query = entityManager
-                .createQuery(querySql, Atendente.class);
-        query.setParameter("id", idAtendente);
-
-        Optional<Atendente> atendente = query.getResultList().stream().findFirst();
-        if (atendente.isPresent()) {
-            return atendente.get().getServicos();
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    @Override
-    public Dia getEnumDia(LocalDate data) {
+    private Dia getEnumDia(LocalDate data) {
 
         int diaParaEnum = data.getDayOfWeek().getValue();
 
@@ -209,47 +207,4 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
         }
     }
 
-    //    @Override
-//    public boolean isPassivoDeAgendamento(
-//            int idAtendente, LocalDate dataAgendamento,
-//            LocalTime horaProxAgendamento, int duracaoServico) {
-//        Dia dia = getNameDia(dataAgendamento);
-//        List<HorarioAtendimento> horariosAtendimento
-//                = horariosAtendimentoAtendente(idAtendente, dia);
-//        List<Agendamento> agendamentosAtendente
-//                = agendamentosAtendente(idAtendente, dataAgendamento);
-//        for (HorarioAtendimento horarioAtendimento : horariosAtendimento) {
-//            LocalTime inicioExpediente = horarioAtendimento.getHoraChegada();
-//            LocalTime fimExpediente = horarioAtendimento.getHoraSaida();
-//            LocalTime fimProxAgendamento = horaProxAgendamento
-//                    .plus(duracaoServico, ChronoUnit.MINUTES);
-//            long duracaoExpediente = ChronoUnit.MINUTES
-//                    .between(inicioExpediente, fimExpediente);
-//            long duracaoAgendamento = ChronoUnit.MINUTES
-//                    .between(horaProxAgendamento, fimProxAgendamento);
-//            if (duracaoExpediente < duracaoAgendamento) {
-//                return false;
-//            }
-//            if (fimProxAgendamento.compareTo(fimExpediente) == 1) {
-//                return false;
-//            }
-//            if (horaProxAgendamento.compareTo(fimExpediente) == 0) {
-//                return false;
-//            }
-//            if (agendamentosAtendente == null) {
-//                return true;
-//            }
-//            for (Agendamento agendamento : agendamentosAtendente) {
-//                LocalTime inicioAgendamento = agendamento.getHorario();
-//                int duracaoServicoAgendamento = agendamento.getServico().getDuracao();
-//                LocalTime fimAgendamento = inicioAgendamento
-//                        .plus(duracaoServicoAgendamento, ChronoUnit.MINUTES);
-//                if (horaProxAgendamento.compareTo(inicioAgendamento) != -1
-//                        && horaProxAgendamento.compareTo(fimAgendamento) == -1) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
 }

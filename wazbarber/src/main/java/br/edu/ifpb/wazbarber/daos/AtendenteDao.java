@@ -2,11 +2,14 @@ package br.edu.ifpb.wazbarber.daos;
 
 import br.edu.ifpb.wazbarber.interfaces.DaoAtendente;
 import br.edu.ifpb.wazbarber.model.Atendente;
+import br.edu.ifpb.wazbarber.model.Servico;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -43,6 +46,31 @@ public class AtendenteDao implements DaoAtendente {
             return new ArrayList<>();
         }
         return query.getResultList();
+    }
+
+    @Override
+    public List<Atendente> atendentesExecutoresDoServico(int idServico) {
+
+        String querySql = "SELECT a FROM Atendente a";
+        
+        TypedQuery<Atendente> query = entityManager
+                .createQuery(querySql, Atendente.class);
+        
+        List<Atendente> atendestesExecutores = new ArrayList<>();
+        
+        if(query.getResultList()  == null){
+            return new ArrayList<>();
+        }else{
+            for (Atendente atendente : query.getResultList()){
+                for(Servico servico : atendente.getServicos()){
+                    if(servico.getId() == idServico){
+                        atendestesExecutores.add(atendente);
+                    }
+                }
+            }
+        
+        }
+        return atendestesExecutores;
     }
 
 }

@@ -5,11 +5,8 @@
  */
 package br.edu.ifpb.wazbarber.controladores;
 
-import br.edu.ifpb.wazbarber.builder.ClienteBuilder;
-import br.edu.ifpb.wazbarber.builder.ClienteBuilderException;
 import br.edu.ifpb.wazbarber.interfaces.AgendamentoHorarioDao;
 import br.edu.ifpb.wazbarber.interfaces.DaoAtendente;
-import br.edu.ifpb.wazbarber.interfaces.DaoCliente;
 import br.edu.ifpb.wazbarber.interfaces.DaoServico;
 import br.edu.ifpb.wazbarber.model.Agendamento;
 import br.edu.ifpb.wazbarber.model.Atendente;
@@ -19,7 +16,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -35,15 +31,13 @@ import javax.servlet.http.HttpSession;
  */
 @Named
 @SessionScoped
-public class ControladorDeAgendamentoHorario implements Serializable {
+public class ControladorDeAgendamentoPorServico implements Serializable {
 
-    private String opcaoAgendamento;
     private Agendamento agendamento;
     private String horarioAgendamento;
     private LocalDate dataAgendamento;
     private Atendente atendente;
     private Servico servico;
-    private ClienteBuilder clienteBuilder;
     private HttpSession sessao;
 
     @Inject
@@ -52,21 +46,14 @@ public class ControladorDeAgendamentoHorario implements Serializable {
     private DaoServico servicoDao;
     @Inject
     private DaoAtendente atendenteDao;
-    @Inject
-    private DaoCliente clienteDao;
 
     @PostConstruct
     public void instanceObjects() {
         this.agendamento = new Agendamento();
         this.atendente = new Atendente();
         this.servico = new Servico();
-        this.clienteBuilder = new ClienteBuilder();
         this.sessao = (HttpSession) FacesContext.getCurrentInstance().
                 getExternalContext().getSession(false);
-    }
-
-    public String confirmar() {
-        return null;
     }
 
     public String confirmarAtendente() {
@@ -83,7 +70,15 @@ public class ControladorDeAgendamentoHorario implements Serializable {
         return agendamentoHorarioDao.servicosAtendente(atendente.getId());
     }
 
-    public String agendarHorario() throws ClienteBuilderException {
+    public List<Servico> todosOsServicos() {
+        return servicoDao.todosOsServicos();
+    }
+
+    public List<Atendente> atendentesExecutoresDoServico() {
+        return atendenteDao.atendentesExecutoresDoServico(servico.getId());
+    }
+
+    public String agendarHorario() {
 
         Cliente cliente = (Cliente) sessao.getAttribute("cliente");
 
@@ -95,20 +90,11 @@ public class ControladorDeAgendamentoHorario implements Serializable {
         agendamento.setAtendente(atendente);
         agendamento.setCliente(cliente);
 
-        List<Agendamento> agendamentos = new ArrayList<>(); //Lista auxiliar para o cliente builder
-        agendamentos.add(agendamento); //Adiciona agendamento na lista auxiliar para o builder
-        
-        //Adiciona o agendamento ao atendente
-        atendente.addAgendamentos(agendamento);
-        
         agendamentoHorarioDao.agendarHorarioAtendimento(agendamento);
 
-        clienteDao.atualizar(cliente.getId(), agendamentos);
-        atendenteDao.atualizar(atendente);
-        
         agendamento = new Agendamento();
 
-        return "agendamento-horario.xhtml?faces-redirect=true";
+        return "agendamento-horario-porservico.xhtml?faces-redirect=true";
 
     }
 
@@ -117,23 +103,13 @@ public class ControladorDeAgendamentoHorario implements Serializable {
                 = agendamentoHorarioDao.getHorariosDisponiveisAtendente(
                         atendente.getId(), servico, dataAgendamento);
         if (horariosDisponiveisAtendente.isEmpty()) {
-            String tituloPagina = "agendamento-horario.xhtml";
+            String tituloPagina = "agendamento-horario-porservico.xhtml";
             String mensagem = "O atendente não possui expediente neste dia, "
                     + "escolha um outro dia!";
             mensagemErro(tituloPagina, mensagem);
         }
 
-        System.out.println("###HORARIOS DISPONIVEIS: " + horariosDisponiveisAtendente);
-
         return horariosDisponiveisAtendente;
-    }
-
-    public String getOpcaoAgendamento() {
-        return opcaoAgendamento;
-    }
-
-    public void setOpcaoAgendamento(String opcaoAgendamento) {
-        this.opcaoAgendamento = opcaoAgendamento;
     }
 
     public Agendamento getAgendamento() {
@@ -182,51 +158,4 @@ public class ControladorDeAgendamentoHorario implements Serializable {
         FacesContext.getCurrentInstance().addMessage(tituloPagina, mensagemDeErro);
     }
 
-//    public String confirmarAgendamento() throws ClienteBuilderException {
-//        
-//        int idAtendente = atendente.getId();
-//        int duracaoServico = servico.getDuracao();
-//        
-//        if (!agendamentoHorarioDao.isPassivoDeAgendamento(
-//                idAtendente, dataAgendamento, horario, duracaoServico)) {
-//            String tituloPagina = "agendamento-horario.xhtml";
-//            String mensagemErro = "Impossível o agendamento, "
-//                    + "escolha outro horario ou data";
-//            mensagemErro(tituloPagina, mensagemErro);
-//            return "agendamento-horario.xhtml";
-//        } else {
-//            agendamento.setHorario(horario);
-//            agendamento.setData(dataAgendamento);
-//            agendamento.setAtendente(atendente);
-//
-//            //Pega Cliente da sessão
-//            Cliente cliente = (Cliente) sessao.getAttribute("cliente");
-//
-//            //Adiciona agendamento na lista auxiliar para o builder
-//            agendamentos.add(agendamento);
-//
-//            //Monta o cliente através do builder
-//            clienteBuilder.comAgendamentos(agendamentos).comId(cliente.getId())
-//                    .comEmail(cliente.getEmail()).comSenha(cliente.getSenha());
-//            clienteDao.atualizar(clienteBuilder.toCliente());
-//
-//            //Adiciona o agendamento e atualiza
-//            atendente.addAgendamentos(agendamento);
-//            daoAtendente.atualizar(atendente);
-//            
-//            agendamento.setCliente(cliente);
-//            agendamento.setServico(servico);
-//            agendamentoHorarioDao.agendarHorarioAtendimento(agendamento);
-//        }
-//        agendamento = new Agendamento();
-//        return "inicial.xhtml?faces-redirect=true";
-//    }
-    //Metodo de Teste Funcional
-//    public List<LocalTime> pegaHorariosLivres(){
-//        
-//        Servico servicot = daoServico.buscarPorId(this.servico.getId());
-//        
-//        return new AgendamentoHorarioUtil().horariosDisponiveisAtendente(
-//                atendente.getId(), servicot.getDuracao(), dataAgendamento);
-//    }
 }

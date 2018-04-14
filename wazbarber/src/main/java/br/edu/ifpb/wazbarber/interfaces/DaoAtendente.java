@@ -17,4 +17,6 @@ public interface DaoAtendente {
     
     public void atualizar(Atendente novoEstado);
     
+    public List<Atendente> atendentesExecutoresDoServico(int idServico);
+    
 }

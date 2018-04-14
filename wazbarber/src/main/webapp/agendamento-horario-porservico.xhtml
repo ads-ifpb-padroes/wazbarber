@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>Agendamento de Horário</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+
+            <ui:define name="navbar">
+                <nav class="grey darken-3">
+                    <div class="nav-wrapper">
+                        <a href="areaadmin.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
+                        <ul class="right hide-on-med-and-down">
+                            <h:form>
+                                <li><a><i class="material-icons left">person</i>Admin</a></li>
+                                <li><a jsf:action="#{controladorDeAdmin.realizarLogout()}"><i class="material-icons right">input</i>Logout</a></li>
+                            </h:form>
+                        </ul>
+                    </div>
+                </nav>
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <div class="row">      
+                    <h4 align="center" style="margin-top: 8%">Agende um Horário Por Serviço</h4>
+
+                    <h:messages class="red-text center"/>
+
+                    <h:form class="col s12">
+                        <center>
+                            <div class="input-field col s11 m6 offset-m3">
+                                <h:selectOneMenu id="servico" value="#{controladorDeAgendamentoPorServico.servico.id}"
+                                                 required="true"
+                                                 requiredMessage="Selecione um servico">
+                                    <f:selectItem itemLabel="Escolha um servico"
+                                                  itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{controladorDeAgendamentoPorServico.todosOsServicos()}" var="servicoAgendamento"
+                                                   itemLabel="#{servicoAgendamento.nome} - Duração: #{servicoAgendamento.duracao} - R$ #{servicoAgendamento.preco}"
+                                                   itemValue="#{servicoAgendamento.id}"/>
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="col s11 m6 offset-m3" align="center">
+                                <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
+                                                 action="#{controladorDeAgendamentoPorServico.confirmarServico()}"/>
+                            </div>
+                        </center>
+                    </h:form>
+
+                    <div jsf:rendered="#{controladorDeAgendamentoPorServico.servico.id != null}">
+                        <h:form class="col s12">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <h:selectOneMenu id="atendenteServicos" value="#{controladorDeAgendamentoPorServico.atendente.id}"
+                                                     required="true"
+                                                     requiredMessage="Selecione um atendente">
+                                        <f:selectItem itemLabel="Escolha um atendente"
+                                                      itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{controladorDeAgendamentoPorServico.atendentesExecutoresDoServico()}" var="atendenteDoServico"
+                                                       itemLabel="#{atendenteDoServico.nome}"
+                                                       itemValue="#{atendenteDoServico.id}"/> 
+                                    </h:selectOneMenu>
+                                </div>
+
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <!--<i class="material-icons prefix">account_circle</i>-->
+                                    <h:inputText value="#{controladorDeAgendamentoPorServico.dataAgendamento}" 
+                                                 converter="convert.StringToLocalDate" 
+                                                 converterMessage="O formato da data deve ser dd/mm/aaaa"/>
+                                    <label for="nome">Data Agendamento</label>
+                                </div>
+                            </center>
+
+                            <div class="col s11 m6 offset-m3" align="center">
+                                <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
+                                                 action="#{controladorDeAgendamentoPorServico.confirmarAtendente()}"/>
+                            </div>
+
+                        </h:form>
+                    </div>
+
+                    <div jsf:rendered="#{controladorDeAgendamentoPorServico.atendente.id != 0 
+                                         and controladorDeAgendamentoPorServico.servico.id != 0}">
+                        <h:form class="col s12">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <h:selectOneMenu id="horarioDisponivelPorServico" 
+                                                     value="#{controladorDeAgendamentoPorServico.horarioAgendamento}"
+                                                     required="true" requiredMessage="Selecione um horario">
+                                        <f:selectItem itemLabel="Escolha um horario"
+                                                      itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{controladorDeAgendamentoPorServico.listarHorariosDisponiveisAtendente()}" 
+                                                       var="horarioDisponivelPorServico" 
+                                                       itemLabel="#{horarioDisponivelPorServico}"
+                                                       itemValue="#{horarioDisponivelPorServico}"/> 
+                                    </h:selectOneMenu>
+                                </div>
+
+                                <div class="col s11 m6 offset-m3" align="center">
+                                    <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
+                                                     action="#{controladorDeAgendamentoPorServico.agendarHorario()}"/>
+                                </div>
+                            </center>
+                        </h:form>
+                    </div>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

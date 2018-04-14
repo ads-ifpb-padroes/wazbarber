@@ -44,4 +44,5 @@ public class ServicoDao implements DaoServico {
         }
         return query.getResultList();
     }
+    
 }

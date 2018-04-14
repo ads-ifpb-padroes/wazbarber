@@ -25,16 +25,15 @@ public class Cliente implements Serializable {
     private String senha;
     private String cidade;
 
-//    @OneToMany(mappedBy = "cliente")
-    @OneToMany
-    private List<Agendamento> agendamentos;
+//    @OneToMany
+//    private List<Agendamento> agendamentos;
 
     public Cliente() {
     }
 
     public Cliente(int id, String nomeCompleto, String apelido,
-            String celular, String email, String senha, String cidade,
-            List<Agendamento> agendamentos) {
+            String celular, String email, String senha, String cidade
+            ) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.apelido = apelido;
@@ -42,7 +41,6 @@ public class Cliente implements Serializable {
         this.email = email;
         this.senha = senha;
         this.cidade = cidade;
-        this.agendamentos = agendamentos;
     }
 
     public int getId() {
@@ -73,9 +71,9 @@ public class Cliente implements Serializable {
         return cidade;
     }
 
-    public List<Agendamento> getAgendamentos() {
-        return agendamentos;
-    }
+//    public List<Agendamento> getAgendamentos() {
+//        return agendamentos;
+//    }
 
     @Override
     public String toString() {

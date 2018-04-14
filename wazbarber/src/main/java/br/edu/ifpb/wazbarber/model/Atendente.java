@@ -36,9 +36,8 @@ public class Atendente implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoDeAtendente tipoDeAtendente;
 
-//    @OneToMany(mappedBy = "atendente")
-    @OneToMany
-    private List<Agendamento> agendamentos;
+//    @OneToMany
+//    private List<Agendamento> agendamentos;
 
     @ManyToMany
     private List<Servico> servicos;
@@ -54,7 +53,7 @@ public class Atendente implements Serializable {
         this.nome = nome;
         this.foto = foto;
         this.tipoDeAtendente = tipoDeAtendente;
-        this.agendamentos = new ArrayList<>();
+//        this.agendamentos = new ArrayList<>();
         this.servicos = new ArrayList<>();
         this.horariosAtendimento = new ArrayList<>();
     }
@@ -91,21 +90,21 @@ public class Atendente implements Serializable {
         this.tipoDeAtendente = tipoDeAtendente;
     }
 
-    public boolean addAgendamentos(Agendamento agendamento) {
-        return agendamentos.add(agendamento);
-    }
+//    public boolean addAgendamentos(Agendamento agendamento) {
+//        return agendamentos.add(agendamento);
+//    }
 
     public boolean addServicos(Servico servico) {
         return servicos.add(servico);
     }
 
-    public List<Agendamento> getAgendamentos() {
-        return agendamentos;
-    }
+//    public List<Agendamento> getAgendamentos() {
+//        return agendamentos;
+//    }
 
-    public void setAgendamentos(List<Agendamento> agendamentos) {
-        this.agendamentos = agendamentos;
-    }
+//    public void setAgendamentos(List<Agendamento> agendamentos) {
+//        this.agendamentos = agendamentos;
+//    }
 
     public List<Servico> getServicos() {
         return servicos;

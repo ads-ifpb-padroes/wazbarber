@@ -32,8 +32,7 @@ public class Agendamento implements Serializable {
 
     private boolean confirmado;
 
-    @ManyToOne() //Poderoso
-//    @ManyToOne
+    @ManyToOne()
     private Cliente cliente;
 
     @ManyToOne

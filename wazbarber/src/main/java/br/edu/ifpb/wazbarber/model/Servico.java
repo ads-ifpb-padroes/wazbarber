@@ -1,13 +1,9 @@
 package br.edu.ifpb.wazbarber.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -24,9 +20,8 @@ public class Servico implements Serializable {
     private int duracao;
     private double preco;
 
-//    @ManyToMany(mappedBy = "servicos")
-    @ManyToMany
-    private List<Atendente> atendentes;
+//    @ManyToMany
+//    private List<Atendente> atendentes;
 
     public Servico() {
     }
@@ -35,7 +30,7 @@ public class Servico implements Serializable {
         this.nome = nome;
         this.duracao = duracao;
         this.preco = preco;
-        this.atendentes = new ArrayList<>();
+//        this.atendentes = new ArrayList<>();
     }
 
     public int getId() {
@@ -70,7 +65,7 @@ public class Servico implements Serializable {
         this.preco = preco;
     }
 
-    public boolean addAtendentes(Atendente atendente) {
-        return atendentes.add(atendente);
-    }
+//    public boolean addAtendentes(Atendente atendente) {
+//        return atendentes.add(atendente);
+//    }
 }

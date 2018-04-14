@@ -29,28 +29,33 @@ public class ClienteDao implements DaoCliente {
         entityManager.persist(cliente);
     }
 
+//    @Override
+//    public void atualizar(int idCliente, List<Agendamento> agendamentos) {
+//        Cliente cliente = entityManager.find(Cliente.class, idCliente);
+//
+//        ClienteBuilder clienteBuilder = new ClienteBuilder();
+//        clienteBuilder.comAgendamentos(agendamentos)
+//                .comApelido(cliente.getApelido())
+//                .comCelular(cliente.getCelular())
+//                .comCidade(cliente.getCidade())
+//                .comEmail(cliente.getEmail())
+//                .comId(cliente.getId())
+//                .comNomeCompleto(cliente.getNomeCompleto())
+//                .comSenha(cliente.getSenha());
+//
+//        try {
+//            Cliente clienteMerge = clienteBuilder.toCliente();
+//            entityManager.persist(clienteMerge);
+//        } catch (ClienteBuilderException ex) {
+//            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+
     @Override
-    public void atualizar(int idCliente, List<Agendamento> agendamentos) {
-        Cliente cliente = entityManager.find(Cliente.class, idCliente);
-
-        ClienteBuilder clienteBuilder = new ClienteBuilder();
-        clienteBuilder.comAgendamentos(agendamentos)
-                .comApelido(cliente.getApelido())
-                .comCelular(cliente.getCelular())
-                .comCidade(cliente.getCidade())
-                .comEmail(cliente.getEmail())
-                .comId(cliente.getId())
-                .comNomeCompleto(cliente.getNomeCompleto())
-                .comSenha(cliente.getSenha());
-
-        try {
-            Cliente clienteMerge = clienteBuilder.toCliente();
-            entityManager.merge(clienteMerge);
-        } catch (ClienteBuilderException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void atualizar(Cliente cliente){
+        entityManager.merge(cliente);
     }
-
+    
     @Override
     public Cliente consultarPorEmail(String email) {
         TypedQuery<Cliente> query = entityManager

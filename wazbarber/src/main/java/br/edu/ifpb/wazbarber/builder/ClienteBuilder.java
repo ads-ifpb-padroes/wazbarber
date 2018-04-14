@@ -1,8 +1,6 @@
 package br.edu.ifpb.wazbarber.builder;
 
-import br.edu.ifpb.wazbarber.model.Agendamento;
 import br.edu.ifpb.wazbarber.model.Cliente;
-import java.util.List;
 
 /**
  *
@@ -17,7 +15,7 @@ public class ClienteBuilder {
     private String senha;
     private String cidade;
     private int id;
-    private List<Agendamento> agendamentos;
+//    private List<Agendamento> agendamentos;
 
     public ClienteBuilder() {
     }
@@ -52,10 +50,10 @@ public class ClienteBuilder {
         return this;
     }
     
-    public ClienteBuilder comAgendamentos(List<Agendamento> agendamentos){
-        this.agendamentos = agendamentos;
-        return this;
-    }
+//    public ClienteBuilder comAgendamentos(List<Agendamento> agendamentos){
+//        this.agendamentos = agendamentos;
+//        return this;
+//    }
     
     public ClienteBuilder comId(int id){
         this.id = id;
@@ -64,11 +62,11 @@ public class ClienteBuilder {
 
     public Cliente toCliente() throws ClienteBuilderException {
         validarCliente();
+//        return new Cliente(id, nomeCompleto, apelido, celular, email, 
+//                senha, cidade, agendamentos);
         return new Cliente(id, nomeCompleto, apelido, celular, email, 
-                senha, cidade, agendamentos);
+                senha, cidade);
     }
-
-    
     
     private void validarCliente() throws ClienteBuilderException {
 
