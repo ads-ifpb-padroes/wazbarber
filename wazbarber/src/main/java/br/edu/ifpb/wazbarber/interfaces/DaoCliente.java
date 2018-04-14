@@ -1,6 +1,7 @@
 package br.edu.ifpb.wazbarber.interfaces;
 
 import br.edu.ifpb.wazbarber.model.Cliente;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,9 @@ public interface DaoCliente {
 //    public void atualizar(int idCliente, List<Agendamento> agendamentos);
     
     public void atualizar(Cliente cliente);
+    
+    public List<Cliente> getTodosOsClientes();
+    
+    public Cliente buscarPorId(int idCliente);
     
 }

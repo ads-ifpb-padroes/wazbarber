@@ -5,6 +5,7 @@ import br.edu.ifpb.wazbarber.builder.ClienteBuilderException;
 import br.edu.ifpb.wazbarber.interfaces.DaoCliente;
 import br.edu.ifpb.wazbarber.model.Agendamento;
 import br.edu.ifpb.wazbarber.model.Cliente;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -29,33 +30,11 @@ public class ClienteDao implements DaoCliente {
         entityManager.persist(cliente);
     }
 
-//    @Override
-//    public void atualizar(int idCliente, List<Agendamento> agendamentos) {
-//        Cliente cliente = entityManager.find(Cliente.class, idCliente);
-//
-//        ClienteBuilder clienteBuilder = new ClienteBuilder();
-//        clienteBuilder.comAgendamentos(agendamentos)
-//                .comApelido(cliente.getApelido())
-//                .comCelular(cliente.getCelular())
-//                .comCidade(cliente.getCidade())
-//                .comEmail(cliente.getEmail())
-//                .comId(cliente.getId())
-//                .comNomeCompleto(cliente.getNomeCompleto())
-//                .comSenha(cliente.getSenha());
-//
-//        try {
-//            Cliente clienteMerge = clienteBuilder.toCliente();
-//            entityManager.persist(clienteMerge);
-//        } catch (ClienteBuilderException ex) {
-//            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-
     @Override
-    public void atualizar(Cliente cliente){
+    public void atualizar(Cliente cliente) {
         entityManager.merge(cliente);
     }
-    
+
     @Override
     public Cliente consultarPorEmail(String email) {
         TypedQuery<Cliente> query = entityManager
@@ -67,6 +46,26 @@ public class ClienteDao implements DaoCliente {
             return cliente.get();
         } else {
             return null;
+        }
+    }
+    
+    @Override
+    public Cliente buscarPorId(int idCliente) {
+        return entityManager.find(Cliente.class, idCliente);
+    }
+
+    @Override
+    public List<Cliente> getTodosOsClientes() {
+
+        String querySql = "SELECT c FROM Cliente c";
+
+        TypedQuery<Cliente> query = entityManager
+                .createQuery(querySql, Cliente.class);
+
+        if (query.getResultList() == null) {
+            return new ArrayList<>();
+        } else {
+            return query.getResultList();
         }
     }
 

@@ -31,15 +31,34 @@
 
                     <h:messages class="red-text center"/>
 
+
                     <h:form class="col s12">
+
+                    <div jsf:rendered="#{controladorDeAgendamento.ehSessaoCliente == false}">
                         <center>
                             <div class="input-field col s11 m6 offset-m3">
-                                <h:selectOneMenu id="servico" value="#{controladorDeAgendamentoPorServico.servico.id}"
+                                <h:selectOneMenu id="clienteDoSelect" value="#{controladorDeAgendamento.idClienteDoSelect}"
+                                                 required="true"
+                                                 requiredMessage="Selecione um cliente">
+                                    <f:selectItem itemLabel="Escolha um cliente"
+                                                  itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{controladorDeAgendamento.listarTodosOsClientes()}" var="clienteDoSelect"
+                                                   itemLabel="#{clienteDoSelect.nomeCompleto} - Cidade: #{clienteDoSelect.cidade}"
+                                                   itemValue="#{clienteDoSelect.id}"/> 
+                                </h:selectOneMenu>
+                            </div>
+                        </center>
+                    </div>
+
+
+                        <center>
+                            <div class="input-field col s11 m6 offset-m3">
+                                <h:selectOneMenu id="servico" value="#{controladorDeAgendamento.servico.id}"
                                                  required="true"
                                                  requiredMessage="Selecione um servico">
                                     <f:selectItem itemLabel="Escolha um servico"
                                                   itemValue="" noSelectionOption="true"/>
-                                    <f:selectItems value="#{controladorDeAgendamentoPorServico.todosOsServicos()}" var="servicoAgendamento"
+                                    <f:selectItems value="#{controladorDeAgendamento.todosOsServicos()}" var="servicoAgendamento"
                                                    itemLabel="#{servicoAgendamento.nome} - Duração: #{servicoAgendamento.duracao} - R$ #{servicoAgendamento.preco}"
                                                    itemValue="#{servicoAgendamento.id}"/>
                                 </h:selectOneMenu>
@@ -47,21 +66,21 @@
 
                             <div class="col s11 m6 offset-m3" align="center">
                                 <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
-                                                 action="#{controladorDeAgendamentoPorServico.confirmarServico()}"/>
+                                                 action="#{controladorDeAgendamento.confirmarServico()}"/>
                             </div>
                         </center>
                     </h:form>
 
-                    <div jsf:rendered="#{controladorDeAgendamentoPorServico.servico.id != null}">
+                    <div jsf:rendered="#{controladorDeAgendamento.servico.id != null}">
                         <h:form class="col s12">
                             <center>
                                 <div class="input-field col s11 m6 offset-m3">
-                                    <h:selectOneMenu id="atendenteServicos" value="#{controladorDeAgendamentoPorServico.atendente.id}"
+                                    <h:selectOneMenu id="atendenteServicos" value="#{controladorDeAgendamento.atendente.id}"
                                                      required="true"
                                                      requiredMessage="Selecione um atendente">
                                         <f:selectItem itemLabel="Escolha um atendente"
                                                       itemValue="" noSelectionOption="true"/>
-                                        <f:selectItems value="#{controladorDeAgendamentoPorServico.atendentesExecutoresDoServico()}" var="atendenteDoServico"
+                                        <f:selectItems value="#{controladorDeAgendamento.atendentesExecutoresDoServico()}" var="atendenteDoServico"
                                                        itemLabel="#{atendenteDoServico.nome}"
                                                        itemValue="#{atendenteDoServico.id}"/> 
                                     </h:selectOneMenu>
@@ -69,7 +88,7 @@
 
                                 <div class="input-field col s11 m6 offset-m3">
                                     <!--<i class="material-icons prefix">account_circle</i>-->
-                                    <h:inputText value="#{controladorDeAgendamentoPorServico.dataAgendamento}" 
+                                    <h:inputText value="#{controladorDeAgendamento.dataAgendamento}" 
                                                  converter="convert.StringToLocalDate" 
                                                  converterMessage="O formato da data deve ser dd/mm/aaaa"/>
                                     <label for="nome">Data Agendamento</label>
@@ -78,23 +97,23 @@
 
                             <div class="col s11 m6 offset-m3" align="center">
                                 <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
-                                                 action="#{controladorDeAgendamentoPorServico.confirmarAtendente()}"/>
+                                                 action="#{controladorDeAgendamento.confirmarAtendente()}"/>
                             </div>
 
                         </h:form>
                     </div>
 
-                    <div jsf:rendered="#{controladorDeAgendamentoPorServico.atendente.id != 0 
-                                         and controladorDeAgendamentoPorServico.servico.id != 0}">
+                    <div jsf:rendered="#{controladorDeAgendamento.atendente.id != 0 
+                                         and controladorDeAgendamento.servico.id != 0}">
                         <h:form class="col s12">
                             <center>
                                 <div class="input-field col s11 m6 offset-m3">
                                     <h:selectOneMenu id="horarioDisponivelPorServico" 
-                                                     value="#{controladorDeAgendamentoPorServico.horarioAgendamento}"
+                                                     value="#{controladorDeAgendamento.horarioAgendamento}"
                                                      required="true" requiredMessage="Selecione um horario">
                                         <f:selectItem itemLabel="Escolha um horario"
                                                       itemValue="" noSelectionOption="true"/>
-                                        <f:selectItems value="#{controladorDeAgendamentoPorServico.listarHorariosDisponiveisAtendente()}" 
+                                        <f:selectItems value="#{controladorDeAgendamento.listarHorariosDisponiveisAtendente()}" 
                                                        var="horarioDisponivelPorServico" 
                                                        itemLabel="#{horarioDisponivelPorServico}"
                                                        itemValue="#{horarioDisponivelPorServico}"/> 
@@ -103,11 +122,18 @@
 
                                 <div class="col s11 m6 offset-m3" align="center">
                                     <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
-                                                     action="#{controladorDeAgendamentoPorServico.agendarHorario()}"/>
+                                                     action="#{controladorDeAgendamento.agendarHorario()}"/>
                                 </div>
+
                             </center>
                         </h:form>
+
+
+
+
+
                     </div>
+
                 </div>
 
             </ui:define>

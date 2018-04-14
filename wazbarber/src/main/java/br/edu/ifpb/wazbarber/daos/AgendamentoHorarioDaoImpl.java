@@ -53,7 +53,7 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
             System.out.println("####HORARIO DE ATENDIMENTO#### " + horarioAtendimento);
 
             List<Agendamento> agendamentos
-                    = agendamentosAtendente(idAtendente, data);
+                    = agendamentosNaoConfirmadosAtendente(idAtendente, data);
 
             List<LocalTime> horariosDisponiveis = new LinkedList<>();
 
@@ -167,11 +167,11 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
     }
     
     
-    //Aqui falta refatorar a busca para trazer apenas os agendamentos não confirmados
-    private List<Agendamento> agendamentosAtendente(int idAtendente, LocalDate data) {
+    private List<Agendamento> agendamentosNaoConfirmadosAtendente(int idAtendente, LocalDate data) {
 
         String querySql = "SELECT a FROM Agendamento a "
                 + "WHERE a.atendente.id= :id AND a.data= :data "
+                + "AND a.confirmado = false "
                 + "ORDER BY a.data, a.horario";
         TypedQuery<Agendamento> query = entityManager
                 .createQuery(querySql, Agendamento.class);

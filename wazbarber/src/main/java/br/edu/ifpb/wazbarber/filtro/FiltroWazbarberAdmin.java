@@ -19,32 +19,32 @@ import javax.servlet.http.HttpSession;
  *
  * @author jozimar
  */
-@WebFilter(filterName = "FiltroWazbarberAdmin", urlPatterns = {"/areaadmin.xhtml"})
-public class FiltroWazbarberAdmin implements Filter {
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-            throws IOException, ServletException {
-
-        HttpSession session = ((HttpServletRequest) request).getSession();
-
-        Object admin = (Object) session.getAttribute("admin");
-
-        if (admin == null) {
-            ((HttpServletResponse) response).sendRedirect("loginadmin.xhtml");
-        } else {
-            chain.doFilter(request, response);
-        }
-    }
-
-    @Override
-    public void destroy() {
-    }
-
-}
+//@WebFilter(filterName = "FiltroWazbarberAdmin", urlPatterns = {"/areaadmin.xhtml"})
+//public class FiltroWazbarberAdmin implements Filter {
+//
+//    @Override
+//    public void init(FilterConfig filterConfig) {
+//
+//    }
+//
+//    @Override
+//    public void doFilter(ServletRequest request, ServletResponse response,
+//            FilterChain chain)
+//            throws IOException, ServletException {
+//
+//        HttpSession session = ((HttpServletRequest) request).getSession();
+//
+//        Object admin = (Object) session.getAttribute("admin");
+//
+//        if (admin == null) {
+//            ((HttpServletResponse) response).sendRedirect("loginadmin.xhtml");
+//        } else {
+//            chain.doFilter(request, response);
+//        }
+//    }
+//
+//    @Override
+//    public void destroy() {
+//    }
+//
+//}
