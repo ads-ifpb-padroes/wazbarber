@@ -35,7 +35,7 @@ public class ControladorDeHorarioAtendimento implements Serializable {
 
     public String cadastrar() throws IOException {
         Atendente atendenteBuscado = daoAtendente.buscarPorId(atendente.getId());
-        atendenteBuscado.addHorariosAtendimentos(horarioAtendimento);
+        atendenteBuscado.addHorarioAtendimento(horarioAtendimento);
 
         daoAtendente.atualizar(atendenteBuscado);
         return "areaadmin.xhtml?faces-redirect=true";

@@ -87,11 +87,11 @@
                                             <f:selectItem itemLabel="Escolha um Servico"
                                                           itemValue="" noSelectionOption="true"/>
                                             <f:selectItems value="#{controladorDeAgendamentoHorario.servicosAtendente()}" var="servico"
-                                                           itemLabel="#{servico.nome} - Duração: #{servico.duracao} min - R$: #{servico.preco}"
+                                                           itemLabel="#{servico.nome} - Duração: #{servico.duracao} min - R$ #{servico.preco}"
                                                            itemValue="#{servico.id}"/> 
                                         </h:selectOneMenu>
                                     </div>
-
+                                    
                                     <div class="input-field col s11 m6 offset-m3">
                                         <!--<i class="material-icons prefix">account_circle</i>-->
                                         <h:inputText value="#{controladorDeAgendamentoHorario.dataAgendamento}" 
@@ -99,56 +99,46 @@
                                                      converterMessage="O formato da data deve ser dd/mm/aaaa"/>
                                         <label for="nome">Data Agendamento</label>
                                     </div>
-                                    
-                                    <!--Horario de Agendamento-->
-                                    <div class="input-field col s11 m6 offset-m3">
-                                        <i class="material-icons prefix">access_time</i>
-                                        <h:inputText id="horarioAgendamento" converter="convert.LocalTime" 
-                                                     converterMessage="O formato da hora deve ser 12:00" 
-                                                     class="validate" value="#{controladorDeAgendamentoHorario.horario}" 
-                                                     required="true"/>
-                                        <label for="horarioAgendamento">Horario Agendamento</label>
-                                    </div>
-
-                                    <div class="col s11 m6 offset-m3" align="center">
-                                        <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
-                                                         action="#{controladorDeAgendamentoHorario.confirmarAgendamento()}"/>
-                                    </div>
                                 </center>
+                                
+                                <div class="col s11 m6 offset-m3" align="center">
+                                    <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
+                                                     action="#{controladorDeAgendamentoHorario.confirmarServico()}"/>
+                                </div>
+                                
                             </h:form>
                         </div>
+
+                        <div jsf:rendered="#{controladorDeAgendamentoHorario.atendente.id != 0 
+                                             and controladorDeAgendamentoHorario.servico.id != 0}">
+                            <h:form class="col s12">
+                                <center>
+                                    <div class="input-field col s11 m6 offset-m3">
+                                        <h:selectOneMenu id="horarioDisponivel" 
+                                                         value="#{controladorDeAgendamentoHorario.horarioAgendamento}"
+                                                         required="true" requiredMessage="Selecione um horario">
+                                            <f:selectItem itemLabel="Escolha um horario"
+                                                          itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{controladorDeAgendamentoHorario.listarHorariosDisponiveisAtendente()}" 
+                                                           var="horarioDisponivel" 
+                                                           itemLabel="#{horarioDisponivel}"
+                                                           itemValue="#{horarioDisponivel}"/> 
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                <div class="col s11 m6 offset-m3" align="center">
+                                    <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
+                                                     action="#{controladorDeAgendamentoHorario.agendarHorario()}"/>
+                                </div>
+                                    
+                                </center>
+                            </h:form>
+                            
+                        </div>
+                        
+                       
+                        
                     </div>
-
-                    <!--<h5>Serviços</h5>
-                                        <h:dataTable value="#{controladorContato.listarContatos()}" var="contato">
-                                            <h:column>
-                                                <div class="row">
-                                                    <div class="col l4 m4 s3">
-                    #{contato.nome}    
-                                </div>
-                                <div class="col l4 m4 s3">
-                    #{contato.numero}
-                                </div>
-                                <div class="col l4 m4 s2">
-                                    <h:form>
-                                        <div class="col l3 m6 s2">
-                                            <h:commandLink action="#{controladorContato.atualizarContato(contato)}"
-                                                           class="btn-floating btn-flat waves-effect waves-light blue">
-                                                <i class="material-icons">edit</i>
-                                            </h:commandLink>
-                                        </div>
-                                        <div class="col l3 m6 s2">
-                                            <h:commandLink id="removeContato" action="#{controladorContato.removerContato(contato)}"
-                                                           class="btn-floating btn-flat waves-effect waves-light red">
-                                                <i class="material-icons">clear</i>
-                                            </h:commandLink>
-                                        </div>
-                                    </h:form>
-                                </div>
-                            </div>
-                        </h:column>
-                    </h:dataTable>-->
-
                 </div>
 
             </ui:define>

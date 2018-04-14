@@ -1,8 +1,8 @@
 package br.edu.ifpb.wazbarber.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,20 +25,24 @@ public class Cliente implements Serializable {
     private String senha;
     private String cidade;
 
-    @OneToMany(mappedBy = "cliente")
+//    @OneToMany(mappedBy = "cliente")
+    @OneToMany
     private List<Agendamento> agendamentos;
 
     public Cliente() {
     }
 
-    public Cliente(String nomeCompleto, String apelido, String celular, String email, String senha, String cidade) {
+    public Cliente(int id, String nomeCompleto, String apelido,
+            String celular, String email, String senha, String cidade,
+            List<Agendamento> agendamentos) {
+        this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.apelido = apelido;
         this.celular = celular;
         this.email = email;
         this.senha = senha;
         this.cidade = cidade;
-        this.agendamentos = new ArrayList<>();
+        this.agendamentos = agendamentos;
     }
 
     public int getId() {
@@ -68,7 +72,6 @@ public class Cliente implements Serializable {
     public String getCidade() {
         return cidade;
     }
-    
 
     public List<Agendamento> getAgendamentos() {
         return agendamentos;
@@ -76,6 +79,8 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nomeCompleto=" + nomeCompleto + ", apelido=" + apelido + ", celular=" + celular + ", email=" + email + ", senha=" + senha + ", cidade=" + cidade + '}';
+        return "Cliente{" + "id=" + id + ", nomeCompleto=" + nomeCompleto
+                + ", apelido=" + apelido + ", celular=" + celular
+                + ", email=" + email + ", senha=" + senha + ", cidade=" + cidade + '}';
     }
 }

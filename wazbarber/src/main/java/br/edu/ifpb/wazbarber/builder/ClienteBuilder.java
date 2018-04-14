@@ -64,9 +64,12 @@ public class ClienteBuilder {
 
     public Cliente toCliente() throws ClienteBuilderException {
         validarCliente();
-        return new Cliente(nomeCompleto, apelido, celular, email, senha, cidade);
+        return new Cliente(id, nomeCompleto, apelido, celular, email, 
+                senha, cidade, agendamentos);
     }
 
+    
+    
     private void validarCliente() throws ClienteBuilderException {
 
         if (email == null || email.isEmpty()) {

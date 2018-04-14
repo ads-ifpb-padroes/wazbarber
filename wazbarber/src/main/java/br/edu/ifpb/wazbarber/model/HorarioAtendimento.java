@@ -70,4 +70,12 @@ public class HorarioAtendimento implements Serializable {
     public void setDia(Dia dia) {
         this.dia = dia;
     }
+
+    @Override
+    public String toString() {
+        return "HorarioAtendimento{" + "id=" + id + ", horaChegada=" 
+                + horaChegada + ", horaSaida=" + horaSaida + ", dia=" + dia + '}';
+    }
+
+    
 }

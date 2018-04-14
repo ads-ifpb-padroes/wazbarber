@@ -19,32 +19,32 @@ import javax.servlet.http.HttpSession;
  *
  * @author jozimar
  */
-@WebFilter(filterName = "FiltroWazbarberCliente", urlPatterns = {"/inicial.xhtml"})
-public class FiltroWazbarberCliente implements Filter {
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-            throws IOException, ServletException {
-
-        HttpSession session = ((HttpServletRequest) request).getSession();
-
-        Object cliente = (Object) session.getAttribute("cliente");
-
-        if (cliente == null) {
-            ((HttpServletResponse) response).sendRedirect("index.xhtml");
-        } else {
-            chain.doFilter(request, response);
-        }
-    }
-
-    @Override
-    public void destroy() {
-    }
-
-}
+//@WebFilter(filterName = "FiltroWazbarberCliente", urlPatterns = {"/inicial.xhtml"})
+//public class FiltroWazbarberCliente implements Filter {
+//
+//    @Override
+//    public void init(FilterConfig filterConfig) {
+//
+//    }
+//
+//    @Override
+//    public void doFilter(ServletRequest request, ServletResponse response,
+//            FilterChain chain)
+//            throws IOException, ServletException {
+//
+//        HttpSession session = ((HttpServletRequest) request).getSession();
+//
+//        Object cliente = (Object) session.getAttribute("cliente");
+//
+//        if (cliente == null) {
+//            ((HttpServletResponse) response).sendRedirect("index.xhtml");
+//        } else {
+//            chain.doFilter(request, response);
+//        }
+//    }
+//
+//    @Override
+//    public void destroy() {
+//    }
+//
+//}

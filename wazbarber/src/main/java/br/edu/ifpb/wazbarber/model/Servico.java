@@ -24,7 +24,8 @@ public class Servico implements Serializable {
     private int duracao;
     private double preco;
 
-    @ManyToMany(mappedBy = "servicos")
+//    @ManyToMany(mappedBy = "servicos")
+    @ManyToMany
     private List<Atendente> atendentes;
 
     public Servico() {

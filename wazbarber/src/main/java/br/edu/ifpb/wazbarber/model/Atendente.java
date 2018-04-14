@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -37,20 +36,21 @@ public class Atendente implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoDeAtendente tipoDeAtendente;
 
-    @OneToMany(mappedBy = "atendente")
+//    @OneToMany(mappedBy = "atendente")
+    @OneToMany
     private List<Agendamento> agendamentos;
 
     @ManyToMany
     private List<Servico> servicos;
 
     @OneToMany(cascade = CascadeType.MERGE)
-    List<HorarioAtendimento> horariosAtendimento;
+    private List<HorarioAtendimento> horariosAtendimento;
 
     public Atendente() {
+
     }
 
-    public Atendente(int id, String nome, byte[] foto, TipoDeAtendente tipoDeAtendente) {
-        this.id = id;
+    public Atendente(String nome, byte[] foto, TipoDeAtendente tipoDeAtendente) {
         this.nome = nome;
         this.foto = foto;
         this.tipoDeAtendente = tipoDeAtendente;
@@ -99,10 +99,6 @@ public class Atendente implements Serializable {
         return servicos.add(servico);
     }
 
-    public boolean addHorariosAtendimentos(HorarioAtendimento horarioAtendimento) {
-        return horariosAtendimento.add(horarioAtendimento);
-    }
-
     public List<Agendamento> getAgendamentos() {
         return agendamentos;
     }
@@ -123,13 +119,17 @@ public class Atendente implements Serializable {
         return horariosAtendimento;
     }
 
-    public void setHorariosAtendimento(List<HorarioAtendimento> horariosAtendimentos) {
-        this.horariosAtendimento = horariosAtendimentos;
+    public void setHorariosAtendimento(List<HorarioAtendimento> horariosAtendimento) {
+        this.horariosAtendimento = horariosAtendimento;
     }
-    
+
+    public boolean addHorarioAtendimento(HorarioAtendimento horarioAtendimento) {
+        return horariosAtendimento.add(horarioAtendimento);
+    }
+
     @Override
     public String toString() {
-        return "Atendente{" + "id=" + id + ", nome=" + nome 
+        return "Atendente{" + "id=" + id + ", nome=" + nome
                 + ", foto=" + foto + ", tipoDeAtendente=" + tipoDeAtendente + '}';
     }
 }

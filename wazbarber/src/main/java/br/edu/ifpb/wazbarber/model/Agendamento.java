@@ -1,12 +1,11 @@
 package br.edu.ifpb.wazbarber.model;
 
 import br.edu.ifpb.wazbarber.conversores.LocalDateConverter;
-import br.edu.ifpb.wazbarber.conversores.LocalDateTimeConverter;
-import br.edu.ifpb.wazbarber.conversores.LocalTimeConvert;
 import br.edu.ifpb.wazbarber.conversores.LocalTimeConverter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +32,8 @@ public class Agendamento implements Serializable {
 
     private boolean confirmado;
 
-    @ManyToOne
+    @ManyToOne() //Poderoso
+//    @ManyToOne
     private Cliente cliente;
 
     @ManyToOne
@@ -45,7 +45,7 @@ public class Agendamento implements Serializable {
     public Agendamento() {
     }
 
-    public Agendamento(int id, LocalTime horario, 
+    public Agendamento(int id, LocalTime horario,
             LocalDate data, boolean confirmado) {
         this.id = id;
         this.horario = horario;
@@ -108,4 +108,13 @@ public class Agendamento implements Serializable {
     public void setServico(Servico servico) {
         this.servico = servico;
     }
+
+    @Override
+    public String toString() {
+        return "Agendamento{" + "id=" + id + ", horario=" + horario
+                + ", data=" + data + ", confirmado=" + confirmado
+                + ", cliente=" + cliente + ", atendente=" + atendente
+                + ", servico=" + servico + '}';
+    }
+
 }
