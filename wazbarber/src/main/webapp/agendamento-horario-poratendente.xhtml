@@ -31,33 +31,7 @@
 
                     <h:messages class="red-text center"/>
 
-                    <!--                    <h:form class="col s12">
-                                            <div>
-                                                <center>
-                                                    <div class="input-field col s11 m6 offset-m3">
-                                                        <h:selectOneMenu id="agendamento" required="true"
-                                                                         requiredMessage="Selecione um tipo de agendamento" 
-                                                                         value="#{controladorDeAgendamentoPorAtendente.opcaoAgendamento}">
-                                                            <f:selectItem itemLabel="Escolha a forma de agendamento" 
-                                                                          itemValue="" noSelectionOption="true"/>
-                                                            <f:selectItem itemLabel="Por Atendente" itemValue="atendente"  
-                                                                          noSelectionOption="false" />
-                                                            <f:selectItem itemLabel="Por Serviço" itemValue="servico" 
-                                                                          noSelectionOption="false"/>
-                                                        </h:selectOneMenu>
-                    
-                                                        <div class="input-field" align="center">
-                                                            <h:commandButton value="Confirmar" class="waves-effect waves-light btn grey darken-2" 
-                                                                             action="#{controladorDeAgendamentoPorAtendente.confirmar()}"/>
-                                                        </div>
-                                                    </div>
-                                                </center>
-                                            </div>
-                                        </h:form>-->
-
-                    <!--<div jsf:rendered="#{controladorDeAgendamentoPorAtendente.opcaoAgendamento == 'atendente'}">-->
                     <h:form class="col s12">
-
                         <div jsf:rendered="#{controladorDeAgendamento.ehSessaoCliente == false}">
                             <center>
                                 <div class="input-field col s11 m6 offset-m3">

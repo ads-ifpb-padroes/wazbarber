@@ -7,7 +7,7 @@
 <!--        <property name="databaseName" value="wazbarber"/>-->
         <property name="User" value="postgres"/>
         <!--<property name="Password" value="deus"/>-->
-        <property name="Password" value="postgres"/>
+        <property name="Password" value="pgadmin"/>
         <property name="URL" value="jdbc:postgresql://localhost:5432/wazbarber"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>

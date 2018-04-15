@@ -5,6 +5,7 @@ import br.edu.ifpb.wazbarber.builder.ClienteBuilderException;
 import br.edu.ifpb.wazbarber.interfaces.DaoCliente;
 import br.edu.ifpb.wazbarber.model.Agendamento;
 import br.edu.ifpb.wazbarber.model.Cliente;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,4 +85,19 @@ public class ClienteDao implements DaoCliente {
         }
 
     }
+
+    @Override
+    public List<Cliente> clientesFieisFrequentes(int filtroMeses) {
+        LocalDate hoje = LocalDate.now();
+        LocalDate inicio = hoje.minusMonths(filtroMeses);
+        TypedQuery<Cliente> query = entityManager.createQuery("SELECT a.cliente FROM Agendamento a WHERE "
+                + "(a.data=:inicio OR a.data>:inicio) AND (a.data=:hoje OR a.data<:hoje) "
+                + " AND a.confirmado=true "
+                + "GROUP BY a.cliente ORDER BY COUNT(a) DESC", Cliente.class);
+        query.setParameter("inicio", inicio);
+        query.setParameter("hoje", hoje);
+        return query.getResultList();
+    }
+    
+    
 }

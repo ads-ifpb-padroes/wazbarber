@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Controle de fidelidade</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+
+            <ui:define name="navbar">
+                <nav class="grey darken-3">
+                    <div class="nav-wrapper">
+                        <a href="areaadmin.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
+                        <ul class="right hide-on-med-and-down">
+                            <h:form>
+                                <li><a><i class="material-icons left">person</i>Admin</a></li>
+                                <li><a jsf:action="#{controladorDeAdmin.realizarLogout()}"><i class="material-icons right">input</i>Logout</a></li>
+                            </h:form>
+                        </ul>
+                    </div>
+                </nav>
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <h4 align="center">Controle de fidelidade</h4>
+                <h:form>
+                    <div class="row">
+                        <div class="col l3 offset-l3">
+                            <div class="input-field">
+                                <h:selectOneMenu value="#{controladorFidelidade.categoria}">
+                                    <f:selectItem itemLabel="Escolha a categoria"
+                                                              itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Frequentes" itemValue="Frequentes"/>
+                                    <f:selectItem itemLabel="Gastantes" itemValue="Gastantes"/>
+                                </h:selectOneMenu>
+                                <label>Categoria</label>
+                            </div>
+                        </div>
+                        <div class="col l3">
+                            <div class="input-field">
+                                <h:selectOneMenu value="#{controladorFidelidade.filtroMeses}">
+                                    <f:selectItem itemLabel="Escolha o filtro"
+                                                              itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="1 mês" itemValue="1"/>
+                                    <f:selectItem itemLabel="3 meses" itemValue="3"/>
+                                    <f:selectItem itemLabel="6 meses" itemValue="6"/>
+                                </h:selectOneMenu>
+                                <label>Filtro</label>
+                            </div>
+                        </div>
+                        <div class="col l1">
+                            <h:commandLink  action="#{controladorFidelidade.buscar()}"
+                                            class="btn-floating btn-large waves-effect waves-light red">
+                                <i class="material-icons">search</i>
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </h:form>
+                <ul class="collection">
+                    <h:dataTable value="#{controladorFidelidade.fieis}" var="fiel"
+                                 rendered="#{not empty controladorFidelidade.fieis}">
+
+                        <h:column>
+                            <li class="collection-item">
+                                <h:outputText value="#{fiel.nomeCompleto}"/><br/>
+                                <h:outputText value="#{fiel.celular}"/>
+                            </li>
+                        </h:column>
+
+                    </h:dataTable>
+                </ul>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

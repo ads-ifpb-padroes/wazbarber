@@ -1,6 +1,7 @@
 package br.edu.ifpb.wazbarber.interfaces;
 
 import br.edu.ifpb.wazbarber.model.Cliente;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -22,5 +23,6 @@ public interface DaoCliente {
     public List<Cliente> getTodosOsClientes();
     
     public Cliente buscarPorId(int idCliente);
+    public List<Cliente> clientesFieisFrequentes(int filtroMeses);
     
 }
