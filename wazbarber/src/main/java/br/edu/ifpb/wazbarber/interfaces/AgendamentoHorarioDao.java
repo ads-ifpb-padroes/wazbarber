@@ -23,5 +23,7 @@ public interface AgendamentoHorarioDao {
             int idAtendente, Servico servico, LocalDate data);
 
     public List<Servico> servicosAtendente(int idAtendente);
+    
+    public List<Agendamento> buscaAgendamentosComMinimoUmDiaAntecedente();
 
 }

@@ -11,6 +11,7 @@ import br.edu.ifpb.wazbarber.model.Atendente;
 import br.edu.ifpb.wazbarber.model.HorarioAtendimento;
 import br.edu.ifpb.wazbarber.model.Servico;
 import br.edu.ifpb.wazbarber.model.enums.Dia;
+import br.edu.ifpb.wazbarber.servicos.mdb.ProdutorEmail;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -18,7 +19,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -32,6 +35,9 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
 
     @PersistenceContext(unitName = "persistencia")
     EntityManager entityManager;
+
+    @Inject
+    private ProdutorEmail produtorEmail;
 
     @Override
     public void agendarHorarioAtendimento(Agendamento agendamento) {
@@ -165,8 +171,7 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
             return null;
         }
     }
-    
-    
+
     private List<Agendamento> agendamentosNaoConfirmadosAtendente(int idAtendente, LocalDate data) {
 
         String querySql = "SELECT a FROM Agendamento a "
@@ -183,6 +188,61 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
         }
 
         return query.getResultList();
+    }
+
+//    @Schedule(hour = "*", minute = "*", second = "*/5")
+//    public void agendadorEnviarEmail(){
+//        
+//        List<Agendamento> agendamentos 
+//                = buscaAgendamentosComMinimoUmDiaAntecedente();
+//        
+//        System.out.println("*#*#*#*#Lista Agendamentos: " + agendamentos);
+//    }
+    
+    //Favor desconsidere a performance; metodo auxiliar gambiarráico
+    @Override
+    public List<Agendamento> buscaAgendamentosComMinimoUmDiaAntecedente() {
+        
+        String querySql = "SELECT a FROM Agendamento a";
+        
+        TypedQuery<Agendamento> query = entityManager
+                .createQuery(querySql, Agendamento.class);
+
+        List<Agendamento> agendamentos = query.getResultList();
+        List<Agendamento> agmt = new ArrayList<>();
+
+        if (query.getResultList() == null) {
+            return new ArrayList<>();
+        } else {
+
+            for (Agendamento agendamento : agendamentos) {
+
+                long intervaloDeTempo;
+                long intervaloDeDias;
+
+                if (agendamento.getHorario().isAfter(LocalTime.now())) {
+                    intervaloDeTempo = ChronoUnit.MINUTES
+                            .between(LocalTime.now(), agendamento.getHorario());
+                } else {
+                    intervaloDeTempo = ChronoUnit.MINUTES
+                            .between(agendamento.getHorario(), LocalTime.now());
+                }
+
+                if (agendamento.getData().isAfter(LocalDate.now())) {
+                    intervaloDeDias = ChronoUnit.DAYS
+                            .between(LocalDate.now(), agendamento.getData());
+                } else {
+                    intervaloDeDias = ChronoUnit.DAYS
+                            .between(agendamento.getData(), LocalDate.now());
+                }
+
+                if (agendamento.getData().isAfter(LocalDate.now())
+                        && intervaloDeDias >= 1 && intervaloDeTempo >= 24) {
+                    agmt.add(agendamento);
+                }
+            }
+        }
+        return agmt;
     }
 
     private Dia getEnumDia(LocalDate data) {
