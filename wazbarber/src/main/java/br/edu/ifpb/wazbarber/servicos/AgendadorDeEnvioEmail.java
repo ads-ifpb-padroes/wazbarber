@@ -27,7 +27,7 @@ public class AgendadorDeEnvioEmail {
     @Inject
     private ProdutorEmail produtorEmail;
 
-    @Schedule(hour = "*", minute = "*", second = "*/30")
+    @Schedule(dayOfMonth = "*", hour="*/12")
     public void agendadorEnviarEmail() {
 
         List<Agendamento> agendamentos = agendamentoHorarioDao

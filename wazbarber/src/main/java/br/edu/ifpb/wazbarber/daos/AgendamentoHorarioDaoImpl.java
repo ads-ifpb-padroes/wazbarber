@@ -190,15 +190,6 @@ public class AgendamentoHorarioDaoImpl implements AgendamentoHorarioDao {
         return query.getResultList();
     }
 
-//    @Schedule(hour = "*", minute = "*", second = "*/5")
-//    public void agendadorEnviarEmail(){
-//        
-//        List<Agendamento> agendamentos 
-//                = buscaAgendamentosComMinimoUmDiaAntecedente();
-//        
-//        System.out.println("*#*#*#*#Lista Agendamentos: " + agendamentos);
-//    }
-    
     //Favor desconsidere a performance; metodo auxiliar gambiarráico
     @Override
     public List<Agendamento> buscaAgendamentosComMinimoUmDiaAntecedente() {
