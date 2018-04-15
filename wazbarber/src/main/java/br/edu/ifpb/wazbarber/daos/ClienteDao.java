@@ -1,16 +1,11 @@
 package br.edu.ifpb.wazbarber.daos;
 
-import br.edu.ifpb.wazbarber.builder.ClienteBuilder;
-import br.edu.ifpb.wazbarber.builder.ClienteBuilderException;
 import br.edu.ifpb.wazbarber.interfaces.DaoCliente;
-import br.edu.ifpb.wazbarber.model.Agendamento;
 import br.edu.ifpb.wazbarber.model.Cliente;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -94,6 +89,19 @@ public class ClienteDao implements DaoCliente {
                 + "(a.data=:inicio OR a.data>:inicio) AND (a.data=:hoje OR a.data<:hoje) "
                 + " AND a.confirmado=true "
                 + "GROUP BY a.cliente ORDER BY COUNT(a) DESC", Cliente.class);
+        query.setParameter("inicio", inicio);
+        query.setParameter("hoje", hoje);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Cliente> clientesFieisPagantes(int filtroMeses) {
+        LocalDate hoje = LocalDate.now();
+        LocalDate inicio = hoje.minusMonths(filtroMeses);
+        TypedQuery<Cliente> query = entityManager.createQuery("SELECT a.cliente FROM Agendamento a WHERE "
+                + "(a.data=:inicio OR a.data>:inicio) AND (a.data=:hoje OR a.data<:hoje) "
+                + " AND a.confirmado=true "
+                + "GROUP BY a.cliente ORDER BY SUM(a.servico.preco) DESC", Cliente.class);
         query.setParameter("inicio", inicio);
         query.setParameter("hoje", hoje);
         return query.getResultList();

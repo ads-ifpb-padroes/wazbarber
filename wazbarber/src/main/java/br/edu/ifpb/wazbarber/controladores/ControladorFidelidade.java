@@ -25,6 +25,8 @@ public class ControladorFidelidade {
     public String buscar(){
         if(categoria.equals("Frequentes")){
             fieis = clienteDao.clientesFieisFrequentes(filtroMeses);
+        }else if(categoria.equals("Gastantes")){
+            fieis = clienteDao.clientesFieisPagantes(filtroMeses);
         }
         return null;
     }

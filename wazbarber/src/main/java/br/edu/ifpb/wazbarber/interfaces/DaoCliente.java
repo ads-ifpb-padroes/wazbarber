@@ -24,5 +24,6 @@ public interface DaoCliente {
     
     public Cliente buscarPorId(int idCliente);
     public List<Cliente> clientesFieisFrequentes(int filtroMeses);
+    public List<Cliente> clientesFieisPagantes(int filtroMeses);
     
 }
