@@ -17,7 +17,7 @@
                         <a href="areaadmin.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
                         <ul class="right hide-on-med-and-down">
                             <h:form>
-                                <li><a><i class="material-icons left">person</i>Admin</a></li>
+                                <li><a><i class="material-icons left">person</i>#{sessionScope.cliente.nomeCompleto}</a></li>
                                 <li><a jsf:action="#{controladorDeAdmin.realizarLogout()}"><i class="material-icons right">input</i>Logout</a></li>
                             </h:form>
                         </ul>

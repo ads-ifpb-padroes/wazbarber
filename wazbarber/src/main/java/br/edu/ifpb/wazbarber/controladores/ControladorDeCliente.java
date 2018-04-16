@@ -31,7 +31,7 @@ public class ControladorDeCliente implements Serializable {
     private String senha;
     private String cidade;
 
-    Cliente cliente;
+    private Cliente cliente;
 
     @Inject
     private DaoCliente daoCliente;
@@ -42,9 +42,14 @@ public class ControladorDeCliente implements Serializable {
     }
 
     public String cadastrar() throws ClienteBuilderException {
-        clienteBuilder.comNomeCompleto(nomeCompleto).comApelido(apelido).
+        if (apelido == null || !apelido.equals("")) {
+            clienteBuilder.comApelido(apelido);
+        }
+
+        clienteBuilder.comNomeCompleto(nomeCompleto).
                 comCelular(celular).comEmail(email).comSenha(senha).
-                comCidade(cidade).toCliente();
+                comCidade(cidade);
+
         cliente = clienteBuilder.toCliente();
 
         if (daoCliente.consultarPorEmail(cliente.getEmail()) != null) {
@@ -59,15 +64,13 @@ public class ControladorDeCliente implements Serializable {
     }
 
     public String realizarlogin() throws ClienteBuilderException {
-        clienteBuilder.comEmail(email).comSenha(senha).toCliente();
-        cliente = clienteBuilder.toCliente();
-        Cliente clienteLogado = daoCliente.consultarPorEmail(cliente.getEmail());
+        Cliente clienteLogado = daoCliente.consultarPorEmail(email);
         if (clienteLogado == null) {
             mensagemErro("Login", "O cliente informado não está cadastrado!");
             return null;
         } else {
             Cliente clienteAutenticavel = daoCliente
-                    .autenticarCliente(cliente.getEmail(), cliente.getSenha());
+                    .autenticarCliente(email, senha);
             if (clienteAutenticavel == null) {
                 mensagemErro("Login", "Os dados informados estão incorretos!");
                 return null;

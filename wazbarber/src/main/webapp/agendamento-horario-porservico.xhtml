@@ -17,7 +17,7 @@
                         <a href="areaadmin.xhtml" class="brand-logo"><img src="images/logo1.png" alt="logo"/></a>
                         <ul class="right hide-on-med-and-down">
                             <h:form>
-                                <li><a><i class="material-icons left">person</i>Admin</a></li>
+                                <li><a><i class="material-icons left">person</i>#{sessionScope.cliente.nomeCompleto}</a></li>
                                 <li><a jsf:action="#{controladorDeAdmin.realizarLogout()}"><i class="material-icons right">input</i>Logout</a></li>
                             </h:form>
                         </ul>
@@ -34,21 +34,21 @@
 
                     <h:form class="col s12">
 
-                    <div jsf:rendered="#{controladorDeAgendamento.ehSessaoCliente == false}">
-                        <center>
-                            <div class="input-field col s11 m6 offset-m3">
-                                <h:selectOneMenu id="clienteDoSelect" value="#{controladorDeAgendamento.idClienteDoSelect}"
-                                                 required="true"
-                                                 requiredMessage="Selecione um cliente">
-                                    <f:selectItem itemLabel="Escolha um cliente"
-                                                  itemValue="" noSelectionOption="true"/>
-                                    <f:selectItems value="#{controladorDeAgendamento.listarTodosOsClientes()}" var="clienteDoSelect"
-                                                   itemLabel="#{clienteDoSelect.nomeCompleto} - Cidade: #{clienteDoSelect.cidade}"
-                                                   itemValue="#{clienteDoSelect.id}"/> 
-                                </h:selectOneMenu>
-                            </div>
-                        </center>
-                    </div>
+                        <div jsf:rendered="#{controladorDeAgendamento.ehSessaoCliente == false}">
+                            <center>
+                                <div class="input-field col s11 m6 offset-m3">
+                                    <h:selectOneMenu id="clienteDoSelect" value="#{controladorDeAgendamento.idClienteDoSelect}"
+                                                     required="true"
+                                                     requiredMessage="Selecione um cliente">
+                                        <f:selectItem itemLabel="Escolha um cliente"
+                                                      itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{controladorDeAgendamento.listarTodosOsClientes()}" var="clienteDoSelect"
+                                                       itemLabel="#{clienteDoSelect.nomeCompleto} - Cidade: #{clienteDoSelect.cidade}"
+                                                       itemValue="#{clienteDoSelect.id}"/> 
+                                    </h:selectOneMenu>
+                                </div>
+                            </center>
+                        </div>
 
 
                         <center>
