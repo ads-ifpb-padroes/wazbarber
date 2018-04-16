@@ -6,6 +6,7 @@
 package br.edu.ifpb.wazbarber.servicos;
 
 import br.edu.ifpb.wazbarber.model.Agendamento;
+import br.edu.ifpb.wazbarber.model.Pesquisa;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -21,9 +22,8 @@ import org.apache.commons.mail.SimpleEmail;
  */
 @Stateless
 public class ServicoEnvioEmail {
-
     private final String EMAIL = "wazbarbershop@gmail.com";
-    private final String SENHA = "wazbarber123";
+        private final String SENHA = "wazbarber123";
     private final Email email = new SimpleEmail();
 
     @PostConstruct
@@ -43,6 +43,19 @@ public class ServicoEnvioEmail {
                     + "\nAtendente: " + agendamento.getAtendente()
                     + "\nData: " + agendamento.getData()
                     + "\nHorário: " + agendamento.getHorario());
+            email.send();
+        } catch (EmailException ex) {
+            Logger.getLogger(ServicoEnvioEmail.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void enviarEmail(Pesquisa pesquisa){
+         try {
+            email.setFrom(EMAIL);
+            email.addTo(pesquisa.getAgendamento().getCliente().getEmail());
+            email.setMsg("Olá, responda a pesquisa de satisfação da WAZBarber, "
+                    + "acesse o link: http://localhost:8080/wazbarber/pesquisa.xhtml?id="+pesquisa.getId());
             email.send();
         } catch (EmailException ex) {
             Logger.getLogger(ServicoEnvioEmail.class.getName())

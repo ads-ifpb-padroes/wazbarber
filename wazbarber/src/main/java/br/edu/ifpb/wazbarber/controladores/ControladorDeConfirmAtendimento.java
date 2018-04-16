@@ -6,7 +6,9 @@
 package br.edu.ifpb.wazbarber.controladores;
 
 import br.edu.ifpb.wazbarber.interfaces.ConfirmacaoAtendimentoDao;
+import br.edu.ifpb.wazbarber.interfaces.DaoPesquisa;
 import br.edu.ifpb.wazbarber.model.Agendamento;
+import br.edu.ifpb.wazbarber.model.Pesquisa;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,9 @@ public class ControladorDeConfirmAtendimento implements Serializable {
 
     @Inject
     private ConfirmacaoAtendimentoDao confirmAtendimentoDao;
+    @Inject
+    private DaoPesquisa pesquisaDao;
+    
     private List<Agendamento> agendamentos;
 
     @PostConstruct
@@ -39,6 +44,8 @@ public class ControladorDeConfirmAtendimento implements Serializable {
     public String confirmarAtendimento(Agendamento agendamento) {
         agendamentos.remove(agendamento);
         confirmAtendimentoDao.confirmarAtendimento(agendamento.getId());
+        Pesquisa pesquisa = new Pesquisa(false, agendamento);
+        pesquisaDao.cadastrar(pesquisa);
         return null;
     }
 

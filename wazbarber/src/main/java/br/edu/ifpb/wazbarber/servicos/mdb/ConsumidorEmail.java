@@ -6,6 +6,7 @@
 package br.edu.ifpb.wazbarber.servicos.mdb;
 
 import br.edu.ifpb.wazbarber.model.Agendamento;
+import br.edu.ifpb.wazbarber.model.Pesquisa;
 import br.edu.ifpb.wazbarber.servicos.ServicoEnvioEmail;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +28,9 @@ import javax.jms.MessageListener;
             @ActivationConfigProperty(propertyName 
                     = "destinationType", propertyValue = "javax.jms.Queue"),
             @ActivationConfigProperty(propertyName 
-                    = "destinationName", propertyValue = "queueEmail"),}
+                    = "destinationName", propertyValue = "queueEmail")}
 )
-@Stateless
+
 public class ConsumidorEmail implements MessageListener {
 
     @Inject
@@ -38,8 +39,15 @@ public class ConsumidorEmail implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            Agendamento agendamento = message.getBody(Agendamento.class);
-            sender.enviarEmail(agendamento);
+            String categoria = message.getStringProperty("categoria");
+            if(categoria.equals("notificacao")){
+                Agendamento agendamento = message.getBody(Agendamento.class);
+                sender.enviarEmail(agendamento);
+            }else if(categoria.equals("pesquisa")){
+                Pesquisa pesquisa = message.getBody(Pesquisa.class);
+                sender.enviarEmail(pesquisa);
+            }
+
         } catch (JMSException ex) {
             Logger.getLogger(ConsumidorEmail.class.getName())
                     .log(Level.SEVERE, null, ex);

@@ -16,23 +16,21 @@ public class Pesquisa implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-
     private int tempoEspera;
     private int qualidadeAtendimento;
     private int ambiente;
     private int qualidadeServico;
-
+    private boolean status;
+    
     @OneToOne
-    private Atendente atendente;
+    private Agendamento agendamento;
 
     public Pesquisa() {
     }
 
-    public Pesquisa(int tempoEspera, int qualidadeAtendimento, int ambiente, int qualidadeServico) {
-        this.tempoEspera = tempoEspera;
-        this.qualidadeAtendimento = qualidadeAtendimento;
-        this.ambiente = ambiente;
-        this.qualidadeServico = qualidadeServico;
+    public Pesquisa(boolean status, Agendamento agendamento) {
+        this.status = status;
+        this.agendamento = agendamento;
     }
 
     public int getId() {
@@ -75,11 +73,26 @@ public class Pesquisa implements Serializable {
         this.qualidadeServico = qualidadeServico;
     }
 
-    public Atendente getAtendente() {
-        return atendente;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setAtendente(Atendente atendente) {
-        this.atendente = atendente;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
+
+    public Agendamento getAgendamento() {
+        return agendamento;
+    }
+
+    public void setAgendamento(Agendamento agendamento) {
+        this.agendamento = agendamento;
+    }
+
+    @Override
+    public String toString() {
+        return "Pesquisa{" + "id=" + id + ", tempoEspera=" + tempoEspera + ", qualidadeAtendimento=" + qualidadeAtendimento + ", ambiente=" + ambiente + ", qualidadeServico=" + qualidadeServico + ", status=" + status + ", agendamento=" + agendamento + '}';
+    }
+    
+    
 }

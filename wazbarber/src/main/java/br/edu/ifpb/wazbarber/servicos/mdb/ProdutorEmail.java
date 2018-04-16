@@ -6,6 +6,7 @@
 package br.edu.ifpb.wazbarber.servicos.mdb;
 
 import br.edu.ifpb.wazbarber.model.Agendamento;
+import br.edu.ifpb.wazbarber.model.Pesquisa;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -28,7 +29,12 @@ public class ProdutorEmail {
 
     public void enviar(Agendamento agendamento) {
         JMSProducer createProducer = context.createProducer();
-        createProducer.send(fila, agendamento);
+        createProducer.setProperty("categoria", "notificacao").send(fila, agendamento);
+    }
+    
+    public void enviar(Pesquisa pesquisa) {
+        JMSProducer createProducer = context.createProducer();
+        createProducer.setProperty("categoria", "pesquisa").send(fila, pesquisa);
     }
 
 }
