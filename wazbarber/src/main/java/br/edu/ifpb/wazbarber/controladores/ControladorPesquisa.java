@@ -34,6 +34,7 @@ public class ControladorPesquisa {
             busca.setQualidadeServico(pesquisa.getQualidadeServico());
             busca.setTempoEspera(pesquisa.getTempoEspera());
             busca.setStatus(true);
+            busca.setAgendamento(null);
             pesquisaDao.atualizar(busca);
             respondeu = true;
         }

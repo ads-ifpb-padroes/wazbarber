@@ -31,6 +31,8 @@ public class AgendadorDeEnvioEmail {
     @Inject
     private DaoPesquisa pesquisaDao;
     
+    
+    //@Schedule(dayOfMonth = "*", hour="*", minute="*", second="*/10")
     @Schedule(dayOfMonth = "*", hour="*/12")
     public void agendadorEnviarEmail() {
         System.out.println("j");

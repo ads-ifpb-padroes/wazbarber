@@ -10,11 +10,9 @@ import br.edu.ifpb.wazbarber.interfaces.DaoPesquisa;
 import br.edu.ifpb.wazbarber.model.Agendamento;
 import br.edu.ifpb.wazbarber.model.Pesquisa;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -38,9 +36,6 @@ public class ControladorDeConfirmAtendimento implements Serializable {
         agendamentos = confirmAtendimentoDao.agendamentosParaConfirmacao();
     }
 
-//    public List<Agendamento> getAtendimentosParaConfirmacao() {
-//        return confirmAtendimentoDao.agendamentosParaConfirmacao();
-//    }
     public String confirmarAtendimento(Agendamento agendamento) {
         agendamentos.remove(agendamento);
         confirmAtendimentoDao.confirmarAtendimento(agendamento.getId());
