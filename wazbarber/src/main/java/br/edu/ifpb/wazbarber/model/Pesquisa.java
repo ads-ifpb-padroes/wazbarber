@@ -1,6 +1,9 @@
 package br.edu.ifpb.wazbarber.model;
 
+import br.edu.ifpb.wazbarber.conversores.LocalDateConverter;
 import java.io.Serializable;
+import java.time.LocalDate;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,16 +24,31 @@ public class Pesquisa implements Serializable {
     private int ambiente;
     private int qualidadeServico;
     private boolean status;
+    private String email;
     
+    @Convert(converter = LocalDateConverter.class)
+    private LocalDate dataAtendimento;
     @OneToOne
-    private Agendamento agendamento;
+    private Atendente atendente;
 
     public Pesquisa() {
     }
 
-    public Pesquisa(boolean status, Agendamento agendamento) {
+    public Pesquisa(int tempoEspera, int qualidadeAtendimento, int ambiente, int qualidadeServico, boolean status, String email, Atendente atendente) {
+        this.tempoEspera = tempoEspera;
+        this.qualidadeAtendimento = qualidadeAtendimento;
+        this.ambiente = ambiente;
+        this.qualidadeServico = qualidadeServico;
         this.status = status;
-        this.agendamento = agendamento;
+        this.email = email;
+        this.atendente = atendente;
+    }
+
+    public Pesquisa(boolean status, String email, Atendente atendente, LocalDate dataAtendimento) {
+        this.status = status;
+        this.email = email;
+        this.atendente = atendente;
+        this.dataAtendimento = dataAtendimento;
     }
 
     public int getId() {
@@ -81,18 +99,38 @@ public class Pesquisa implements Serializable {
         this.status = status;
     }
 
-    public Agendamento getAgendamento() {
-        return agendamento;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAgendamento(Agendamento agendamento) {
-        this.agendamento = agendamento;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Atendente getAtendente() {
+        return atendente;
+    }
+
+    public void setAtendente(Atendente atendente) {
+        this.atendente = atendente;
+    }
+
+    public LocalDate getDataAtendimento() {
+        return dataAtendimento;
+    }
+
+    public void setDataAtendimento(LocalDate dataAtendimento) {
+        this.dataAtendimento = dataAtendimento;
     }
 
     @Override
     public String toString() {
-        return "Pesquisa{" + "id=" + id + ", tempoEspera=" + tempoEspera + ", qualidadeAtendimento=" + qualidadeAtendimento + ", ambiente=" + ambiente + ", qualidadeServico=" + qualidadeServico + ", status=" + status + ", agendamento=" + agendamento + '}';
+        return "Pesquisa{" + "id=" + id + ", tempoEspera=" + tempoEspera + ", qualidadeAtendimento=" + qualidadeAtendimento + ", ambiente=" + ambiente + ", qualidadeServico=" + qualidadeServico + ", status=" + status + ", email=" + email + ", dataAtendimento=" + dataAtendimento + ", atendente=" + atendente + '}';
     }
+
+    
+    
+    
     
     
 }

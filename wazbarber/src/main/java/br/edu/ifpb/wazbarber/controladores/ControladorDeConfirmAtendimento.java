@@ -39,7 +39,8 @@ public class ControladorDeConfirmAtendimento implements Serializable {
     public String confirmarAtendimento(Agendamento agendamento) {
         agendamentos.remove(agendamento);
         confirmAtendimentoDao.confirmarAtendimento(agendamento.getId());
-        Pesquisa pesquisa = new Pesquisa(false, agendamento);
+        Pesquisa pesquisa = new Pesquisa(false,agendamento.getCliente().getEmail(), 
+                agendamento.getAtendente(), agendamento.getData());
         pesquisaDao.cadastrar(pesquisa);
         return null;
     }

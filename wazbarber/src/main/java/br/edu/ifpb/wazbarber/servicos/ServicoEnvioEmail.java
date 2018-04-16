@@ -53,7 +53,7 @@ public class ServicoEnvioEmail {
     public void enviarEmail(Pesquisa pesquisa){
          try {
             email.setFrom(EMAIL);
-            email.addTo(pesquisa.getAgendamento().getCliente().getEmail());
+            email.addTo(pesquisa.getEmail());
             email.setMsg("Olá, responda a pesquisa de satisfação da WAZBarber, "
                     + "acesse o link: http://localhost:8080/wazbarber/pesquisa.xhtml?id="+pesquisa.getId());
             email.send();
