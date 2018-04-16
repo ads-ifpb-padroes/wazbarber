@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 @RequestScoped
 public class ControladorDeCliente implements Serializable {
 
-    ClienteBuilder clienteBuilder;
+    private ClienteBuilder clienteBuilder;
     private HttpSession sessao;
 
     private String nomeCompleto;
